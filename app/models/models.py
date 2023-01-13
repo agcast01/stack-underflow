@@ -95,6 +95,8 @@ class Question(db.Model):
 
 
 class Answer(db.Model):
+    __tablename__ = 'answers'
+
     id = db.Column(db.Integer, primary_key=True)
     answer = db.Column(db.String, nullable=False)
     questionId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('questions.id')), nullable=False)
