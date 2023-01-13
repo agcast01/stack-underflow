@@ -2,11 +2,13 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
+
 def add_prefix_for_prod(attr):
     if environment == "production":
         return f"{SCHEMA}.{attr}"
     else:
         return attr
+
 
 user_answer_upvotes = db.Table(
     "user_answer_upvotes",
@@ -39,6 +41,7 @@ user_answer_downvotes = db.Table(
         primary_key=True
     )
 )
+
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -83,12 +86,14 @@ class User(db.Model, UserMixin):
             'email': self.email
         }
 
+
 class Question(db.Model):
     __tablename__ = 'questions'
 
     id = db.Column(db.Integer, primary_key=True)
-    question = db.Column(db.String, nullable = False)
-    userId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
+    question = db.Column(db.String, nullable=False)
+    userId = db.Column(db.Integer, db.ForeignKey(
+        add_prefix_for_prod('users.id')), nullable=False)
 
     user = db.relationship('User', back_populates='questions')
     answers = db.relationship('Answer', back_populates='question')
@@ -108,8 +113,10 @@ class Answer(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     answer = db.Column(db.String, nullable=False)
-    questionId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('questions.id')), nullable=False)
-    userId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
+    questionId = db.Column(db.Integer, db.ForeignKey(
+        add_prefix_for_prod('questions.id')), nullable=False)
+    userId = db.Column(db.Integer, db.ForeignKey(
+        add_prefix_for_prod('users.id')), nullable=False)
 
     user = db.relationship('User', back_populates='answers')
     question = db.relationship('Question', back_populates='answers')
@@ -124,11 +131,3 @@ class Answer(db.Model):
         secondary=user_answer_downvotes,
         back_populates="answer_downvotes"
     )
-
-    def to_dict(self):
-       return {
-        "id": self.id,
-        "answer": self.answer,
-        "questionId": self.questionId,
-        "userId": self.userId
-       }
