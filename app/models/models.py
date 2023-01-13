@@ -11,15 +11,15 @@ def add_prefix_for_prod(attr):
 user_answer_upvotes = db.Table(
     "user_answer_upvotes",
     db.Column(
-        "user_id", 
-        db.Integer, 
-        db.ForeignKey(add_prefix_for_prod('users.id')), 
+        "user_id",
+        db.Integer,
+        db.ForeignKey(add_prefix_for_prod('users.id')),
         primary_key=True
     ),
     db.Column(
-        "answer_id", 
-        db.Integer, 
-        db.ForeignKey(add_prefix_for_prod('answers.id')), 
+        "answer_id",
+        db.Integer,
+        db.ForeignKey(add_prefix_for_prod('answers.id')),
         primary_key=True
     )
 )
@@ -27,15 +27,15 @@ user_answer_upvotes = db.Table(
 user_answer_downvotes = db.Table(
     "user_answer_downvotes",
     db.Column(
-        "user_id", 
-        db.Integer, 
-        db.ForeignKey(add_prefix_for_prod('users.id')), 
+        "user_id",
+        db.Integer,
+        db.ForeignKey(add_prefix_for_prod('users.id')),
         primary_key=True
     ),
     db.Column(
-        "answer_id", 
-        db.Integer, 
-        db.ForeignKey(add_prefix_for_prod('answers.id')), 
+        "answer_id",
+        db.Integer,
+        db.ForeignKey(add_prefix_for_prod('answers.id')),
         primary_key=True
     )
 )
@@ -54,14 +54,14 @@ class User(db.Model, UserMixin):
     answers = db.relationship('Answer', back_populates='user')
 
     answer_upvotes = db.relationship(
-        "Answer", 
-        secondary=user_answer_upvotes, 
+        "Answer",
+        secondary=user_answer_upvotes,
         back_populates="user_upvotes"
     )
 
     answer_downvotes = db.relationship(
-        "Answer", 
-        secondary=user_answer_downvotes, 
+        "Answer",
+        secondary=user_answer_downvotes,
         back_populates="user_downvotes"
     )
 
@@ -93,6 +93,13 @@ class Question(db.Model):
     user = db.relationship('User', back_populates='questions')
     answers = db.relationship('Answer', back_populates='question')
 
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "question": self.question,
+            "userId": self.userId
+        }
+
 
 class Answer(db.Model):
     __tablename__ = 'answers'
@@ -105,17 +112,21 @@ class Answer(db.Model):
     user = db.relationship('User', back_populates='answers')
     question = db.relationship('Question', back_populates='answers')
     user_upvotes = db.relationship(
-        "User", 
-        secondary=user_answer_upvotes, 
+        "User",
+        secondary=user_answer_upvotes,
         back_populates="answer_upvotes"
     )
 
     user_downvotes = db.relationship(
-        "User", 
-        secondary=user_answer_downvotes, 
+        "User",
+        secondary=user_answer_downvotes,
         back_populates="answer_downvotes"
     )
 
-
-
-
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "answer": self.answer,
+            "questionId": self.questionId,
+            "userId": self.userId
+        }
