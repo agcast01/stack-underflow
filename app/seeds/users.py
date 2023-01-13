@@ -38,11 +38,15 @@ def seed_users():
     answer1 = Answer(
         answer='Blue', questionId=1, userId=2
     )
-    demo = db.query.get(1)
+    demo = User.query.get(1)
     answer1.user_upvotes.append(demo)
+    bobbie = User.query.get(3)
+    answer1.user_upvotes.append(bobbie)
     answer2 = Answer(
         answer='Really bright', questionId=2, userId=3
     )
+    marnie = User.query.get(2)
+    answer2.user_upvotes.append(marnie)
     answer3 = Answer(
         answer='Heavy', questionId=3, userId=1
     )
@@ -62,7 +66,16 @@ def seed_users():
 def undo_users():
     if environment == "production":
         db.session.execute(f"TRUNCATE table {SCHEMA}.users RESTART IDENTITY CASCADE;")
+        db.session.execute(f"TRUNCATE table {SCHEMA}.questions RESTART IDENTITY CASCADE;")
+        db.session.execute(f"TRUNCATE table {SCHEMA}.answers RESTART IDENTITY CASCADE;")
+        db.session.execute(f"TRUNCATE table {SCHEMA}.user_answers_upvotes RESTART IDENTITY CASCADE;")
+        db.session.execute(f"TRUNCATE table {SCHEMA}.user_answers_downvotes RESTART IDENTITY CASCADE;")
     else:
         db.session.execute("DELETE FROM users")
+        db.session.execute("DELETE FROM questions")
+        db.session.execute("DELETE FROM answers")
+        db.session.execute("DELETE FROM user_answer_upvotes")
+        db.session.execute("DELETE FROM user_answer_downvotes")
+
         
     db.session.commit()
