@@ -7,6 +7,7 @@ from flask_login import LoginManager
 from .models import db, User
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
+from .api.question_routes import question_routes
 from .seeds import seed_commands
 from .config import Config
 
@@ -28,6 +29,7 @@ app.cli.add_command(seed_commands)
 app.config.from_object(Config)
 app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
+app.register_blueprint(question_routes, url_prefix='/api/questions')
 db.init_app(app)
 Migrate(app, db)
 
@@ -73,17 +75,17 @@ def api_help():
     return route_list
 
 
-@app.route('/', defaults={'path': ''})
-@app.route('/<path:path>')
-def react_root(path):
-    """
-    This route will direct to the public directory in our
-    react builds in the production environment for favicon
-    or index.html requests
-    """
-    if path == 'favicon.ico':
-        return app.send_from_directory('public', 'favicon.ico')
-    return app.send_static_file('index.html')
+# @app.route('/', defaults={'path': ''})
+# @app.route('/<path:path>')
+# def react_root(path):
+#     """
+#     This route will direct to the public directory in our
+#     react builds in the production environment for favicon
+#     or index.html requests
+#     """
+#     if path == 'favicon.ico':
+#         return app.send_from_directory('public', 'favicon.ico')
+#     return app.send_static_file('index.html')
 
 
 @app.errorhandler(404)

@@ -2,24 +2,26 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
+
 def add_prefix_for_prod(attr):
     if environment == "production":
         return f"{SCHEMA}.{attr}"
     else:
         return attr
 
+
 user_answer_upvotes = db.Table(
     "user_answer_upvotes",
     db.Column(
-        "user_id", 
-        db.Integer, 
-        db.ForeignKey(add_prefix_for_prod('users.id')), 
+        "user_id",
+        db.Integer,
+        db.ForeignKey(add_prefix_for_prod('users.id')),
         primary_key=True
     ),
     db.Column(
-        "answer_id", 
-        db.Integer, 
-        db.ForeignKey(add_prefix_for_prod('answers.id')), 
+        "answer_id",
+        db.Integer,
+        db.ForeignKey(add_prefix_for_prod('answers.id')),
         primary_key=True
     )
 )
@@ -27,18 +29,19 @@ user_answer_upvotes = db.Table(
 user_answer_downvotes = db.Table(
     "user_answer_downvotes",
     db.Column(
-        "user_id", 
-        db.Integer, 
-        db.ForeignKey(add_prefix_for_prod('users.id')), 
+        "user_id",
+        db.Integer,
+        db.ForeignKey(add_prefix_for_prod('users.id')),
         primary_key=True
     ),
     db.Column(
-        "answer_id", 
-        db.Integer, 
-        db.ForeignKey(add_prefix_for_prod('answers.id')), 
+        "answer_id",
+        db.Integer,
+        db.ForeignKey(add_prefix_for_prod('answers.id')),
         primary_key=True
     )
 )
+
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -54,14 +57,14 @@ class User(db.Model, UserMixin):
     answers = db.relationship('Answer', back_populates='user')
 
     answer_upvotes = db.relationship(
-        "Answer", 
-        secondary=user_answer_upvotes, 
+        "Answer",
+        secondary=user_answer_upvotes,
         back_populates="user_upvotes"
     )
 
     answer_downvotes = db.relationship(
-        "Answer", 
-        secondary=user_answer_downvotes, 
+        "Answer",
+        secondary=user_answer_downvotes,
         back_populates="user_downvotes"
     )
 
@@ -83,15 +86,26 @@ class User(db.Model, UserMixin):
             'email': self.email
         }
 
+
 class Question(db.Model):
     __tablename__ = 'questions'
 
     id = db.Column(db.Integer, primary_key=True)
-    question = db.Column(db.String, nullable = False)
-    userId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
+    question = db.Column(db.String, nullable=False)
+    userId = db.Column(db.Integer, db.ForeignKey(
+        add_prefix_for_prod('users.id')), nullable=False)
 
     user = db.relationship('User', back_populates='questions')
     answers = db.relationship('Answer', back_populates='question')
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "question": self.question,
+            "userId": self.userId,
+            "answers": [answer.to_dict() for answer in self.answers],
+            "user": self.user.to_dict()
+        }
 
 
 class Answer(db.Model):
@@ -99,23 +113,21 @@ class Answer(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     answer = db.Column(db.String, nullable=False)
-    questionId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('questions.id')), nullable=False)
-    userId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
+    questionId = db.Column(db.Integer, db.ForeignKey(
+        add_prefix_for_prod('questions.id')), nullable=False)
+    userId = db.Column(db.Integer, db.ForeignKey(
+        add_prefix_for_prod('users.id')), nullable=False)
 
     user = db.relationship('User', back_populates='answers')
     question = db.relationship('Question', back_populates='answers')
     user_upvotes = db.relationship(
-        "User", 
-        secondary=user_answer_upvotes, 
+        "User",
+        secondary=user_answer_upvotes,
         back_populates="answer_upvotes"
     )
 
     user_downvotes = db.relationship(
-        "User", 
-        secondary=user_answer_downvotes, 
+        "User",
+        secondary=user_answer_downvotes,
         back_populates="answer_downvotes"
     )
-
-
-
-
