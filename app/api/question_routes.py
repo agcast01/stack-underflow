@@ -8,6 +8,7 @@ from .auth_routes import validation_errors_to_error_messages
 question_routes = Blueprint('questions', __name__)
 
 
+
 @question_routes.route('/', methods=['GET', 'PUT'])
 def questions():
 
