@@ -12,6 +12,10 @@ import AllQuestions from './components/AllQuestions';
 import SingleQuestion from './components/SingleQuestion';
 import CreateQuestion from './components/CreateQuestion';
 import UpdateQuestion from './components/UpdateQuestion';
+import UpdateAnswer from './components/UpdateAnswer';
+import { getQuestions } from './store/question';
+import { getAnswers } from './store/answer';
+
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -21,6 +25,8 @@ function App() {
     (async() => {
       await dispatch(authenticate());
       setLoaded(true);
+      dispatch(getQuestions())
+      dispatch(getAnswers())
     })();
   }, [dispatch]);
 
@@ -56,8 +62,11 @@ function App() {
         <Route path = "/questions/edit/:questionId">
             <UpdateQuestion/>
         </Route>
-        <Route path = "/questions/:questionId">
+        <Route exact path = "/questions/:questionId">
           <SingleQuestion/>
+        </Route>
+        <Route path = "/answers/:answerId">
+          <UpdateAnswer/>
         </Route>
       </Switch>
     </BrowserRouter>
