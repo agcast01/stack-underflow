@@ -21,7 +21,7 @@ def question(id):
 
 
 @question_routes.route('/new', methods=['POST'])
-@login_required()
+@login_required
 def create_question():
     form = QuestionForm()
     form['csrf_token'].data = request.cookies['csrf_token']

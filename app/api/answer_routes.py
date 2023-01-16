@@ -21,7 +21,7 @@ def answer(id):
 
 
 @answer_routes.route('/new', methods=['POST'])
-@login_required()
+@login_required
 def create_answer():
     form = AnswerForm()
     form['csrf_token'].data = request.cookies['csrf_token']
