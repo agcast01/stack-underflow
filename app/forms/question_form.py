@@ -7,3 +7,4 @@ from app.models import db, User, Question
 class QuestionForm(FlaskForm):
     question = StringField("Question", validators=[DataRequired()])
     userId = IntegerField("userId", validators=[DataRequired()])
+    title = StringField("title", validators=[DataRequired()])

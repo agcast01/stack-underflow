@@ -9,6 +9,9 @@ import UsersList from './components/UsersList';
 import User from './components/User';
 import { authenticate } from './store/session';
 import AllQuestions from './components/AllQuestions';
+import SingleQuestion from './components/SingleQuestion';
+import CreateQuestion from './components/CreateQuestion';
+import UpdateQuestion from './components/UpdateQuestion';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -44,8 +47,17 @@ function App() {
         <Route path='/' exact={true} >
           <h1>My Home Page</h1>
         </Route>
-        <Route path = "/questions">
+        <Route exact path = "/questions">
           <AllQuestions/>
+        </Route>
+        <Route path = "/questions/new">
+          <CreateQuestion/>
+        </Route>
+        <Route path = "/questions/edit/:questionId">
+            <UpdateQuestion/>
+        </Route>
+        <Route path = "/questions/:questionId">
+          <SingleQuestion/>
         </Route>
       </Switch>
     </BrowserRouter>
