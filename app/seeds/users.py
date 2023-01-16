@@ -20,13 +20,13 @@ def seed_users():
 
     #Question Seed Data
     question1 = Question(
-        question='What color is the sky?', userId=1
+        question='What color is the sky?', userId=1, title='Sky'
     )
     question2 = Question(
-        question='How bright is the sun?', userId=2
+        question='How bright is the sun?', userId=2, title='Sun'
     )
     question3 = Question(
-        question='How heavy are clouds?', userId=3
+        question='How heavy are clouds?', userId=3, title='Clouds'
     )
 
     db.session.add(question1)

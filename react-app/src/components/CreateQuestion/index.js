@@ -9,6 +9,7 @@ function CreateQuestion(){
   const user = useSelector(state => state.session.user)
   console.log("user", user)
   const [text, setText] = useState("")
+  const [title, setTitle] = useState('')
 
 
   const handleSubmit = async (e) => {
@@ -17,7 +18,8 @@ function CreateQuestion(){
 
     const payload = {
       question: text,
-      userId: user.id
+      userId: user.id,
+      title 
     }
 
     let newQuestion = await dispatch(createQuestion(payload))
@@ -29,7 +31,11 @@ function CreateQuestion(){
    <div>
     <form onSubmit = {handleSubmit}>
       <input
-      type="textarea"
+      type="text"
+      value={title}
+      onChange={(e) => setTitle(e.target.value)}
+      />
+      <textarea
       value={text}
       onChange={(e) => setText(e.target.value)}
       />

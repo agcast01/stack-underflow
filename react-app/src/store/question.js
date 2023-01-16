@@ -34,10 +34,10 @@ const update = (question) => {
   }
 }
 
-const destroy = (question) => {
+const destroy = (questionId) => {
   return {
     type: DELETE,
-    question
+    questionId
   }
 }
 
@@ -82,7 +82,7 @@ export const createQuestion = (data) => async dispatch => {
 }
 
 export const updateQuestion = (data, questionId) => async dispatch => {
-  const response = await fetch(`/api/questions/${questionId}`, {
+  const response = await fetch(`/api/questions/${Number(questionId)}`, {
   method: 'put',
   headers: {
     'Content-Type': 'application/json'
@@ -110,6 +110,16 @@ const questions = (state = initialState, action) => {
     case CREATE: {
       const newState = {...state}
       newState[action.question.id] = action.question
+      return newState
+    }
+    case UPDATE: {
+      const newState = {...state}
+      newState[action.question.id] = action.question
+      return newState
+    }
+    case DELETE: {
+      const newState = {...state}
+      delete newState[action.questionId]
       return newState
     }
     default: return state

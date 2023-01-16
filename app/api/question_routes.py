@@ -40,15 +40,15 @@ def create_question():
 @question_routes.route('/<int:id>', methods=['PUT'])
 def edit_question(id):
     question = Question.query.get(id)
+    
     form = QuestionForm()
-
+    form['csrf_token'].data = request.cookies['csrf_token']
+    
     if form.validate_on_submit():
+        question.title = form.data['title']
         question.question = form.data['question']
-
-        db.session.add(question)
         db.session.commit()
         return question.to_dict(), 201
-
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 

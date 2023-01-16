@@ -92,11 +92,12 @@ class Question(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     question = db.Column(db.String, nullable=False)
+    title = db.Column(db.String, nullable=False)
     userId = db.Column(db.Integer, db.ForeignKey(
         add_prefix_for_prod('users.id')), nullable=False)
 
     user = db.relationship('User', back_populates='questions')
-    answers = db.relationship('Answer', back_populates='question')
+    answers = db.relationship('Answer', back_populates='question', cascade="all, delete-orphan")
 
     def to_dict(self):
         return {
@@ -104,7 +105,8 @@ class Question(db.Model):
             "question": self.question,
             "userId": self.userId,
             "answers": [answer.to_dict() for answer in self.answers],
-            "user": self.user.to_dict()
+            "user": self.user.to_dict(),
+            "title": self.title
         }
 
 
