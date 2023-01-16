@@ -107,6 +107,11 @@ const questions = (state = initialState, action) => {
       })
       return newState
     }
+    case CREATE: {
+      const newState = {...state}
+      newState[action.question.id] = action.question
+      return newState
+    }
     default: return state
   }
 }
