@@ -131,3 +131,11 @@ class Answer(db.Model):
         secondary=user_answer_downvotes,
         back_populates="answer_downvotes"
     )
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "answer": self.answer,
+            "questionId": self.questionId,
+            "user": self.user.to_dict()
+        }
