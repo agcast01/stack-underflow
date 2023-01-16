@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { createQuestion } from "../../store/question"
 import { useHistory } from "react-router"
 
-function CreateQuestion(){
+function CreateQuestion() {
   const dispatch = useDispatch()
   const history = useHistory()
   const user = useSelector(state => state.session.user)
@@ -18,7 +18,7 @@ function CreateQuestion(){
     const payload = {
       question: text,
       userId: user.id,
-      title 
+      title
     }
 
     let newQuestion = await dispatch(createQuestion(payload))
@@ -27,20 +27,20 @@ function CreateQuestion(){
   }
 
   return (
-   <div>
-    <form onSubmit = {handleSubmit}>
-      <input
-      type="text"
-      value={title}
-      onChange={(e) => setTitle(e.target.value)}
-      />
-      <textarea
-      value={text}
-      onChange={(e) => setText(e.target.value)}
-      />
-      <button disabled={user === null}>Ask</button>
-    </form>
-   </div>
+    <div>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+        <textarea
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+        />
+        <button disabled={user === null}>Ask</button>
+      </form>
+    </div>
   )
 }
 
