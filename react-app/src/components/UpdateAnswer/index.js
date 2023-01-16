@@ -15,7 +15,6 @@ function UpdateAnswer(){
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(answer)
     answer.answer = text
     let payload = answer
     payload.userId = answer.user.id

@@ -139,5 +139,7 @@ class Answer(db.Model):
             "id": self.id,
             "answer": self.answer,
             "questionId": self.questionId,
-            "user": self.user.to_dict()
+            "user": self.user.to_dict(),
+            "userUpvotes": [user.id for user in self.user_upvotes],
+            "userDownvotes": [user.id for user in self.user_downvotes]
         }
