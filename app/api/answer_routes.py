@@ -108,7 +108,7 @@ def remove_upvote(id):
         del answer.user_upvotes[index]
 
         db.session.commit()
-        return answer.to_dict()
+        return answer.to_dict(), 201
 
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
@@ -125,6 +125,6 @@ def remove_downvote(id):
         del answer.user_downvotes[index]
 
         db.session.commit()
-        return answer.to_dict()
+        return answer.to_dict(), 201
         
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
