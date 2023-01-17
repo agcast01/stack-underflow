@@ -13,6 +13,7 @@ import SingleQuestion from './components/SingleQuestion';
 import CreateQuestion from './components/CreateQuestion';
 import UpdateQuestion from './components/UpdateQuestion';
 import UpdateAnswer from './components/UpdateAnswer';
+import UpdateProfile from './components/UpdateProfile';
 import { getQuestions } from './store/question';
 import { getAnswers } from './store/answer';
 
@@ -22,7 +23,7 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    (async() => {
+    (async () => {
       await dispatch(authenticate());
       setLoaded(true);
       dispatch(getQuestions())
@@ -45,7 +46,7 @@ function App() {
           <SignUpForm />
         </Route>
         <ProtectedRoute path='/users' exact={true} >
-          <UsersList/>
+          <UsersList />
         </ProtectedRoute>
         <ProtectedRoute path='/users/:userId' exact={true} >
           <User />
@@ -53,20 +54,23 @@ function App() {
         <Route path='/' exact={true} >
           <h1>My Home Page</h1>
         </Route>
-        <Route exact path = "/questions">
-          <AllQuestions/>
+        <Route exact path="/questions">
+          <AllQuestions />
         </Route>
-        <Route path = "/questions/new">
-          <CreateQuestion/>
+        <Route path="/questions/new">
+          <CreateQuestion />
         </Route>
-        <Route path = "/questions/edit/:questionId">
-            <UpdateQuestion/>
+        <Route path="/questions/edit/:questionId">
+          <UpdateQuestion />
         </Route>
-        <Route exact path = "/questions/:questionId">
-          <SingleQuestion/>
+        <Route exact path="/questions/:questionId">
+          <SingleQuestion />
         </Route>
-        <Route path = "/answers/:answerId">
-          <UpdateAnswer/>
+        <Route path="/answers/:answerId">
+          <UpdateAnswer />
+        </Route>
+        <Route path="/users/:userId/edit">
+          <UpdateProfile />
         </Route>
       </Switch>
     </BrowserRouter>

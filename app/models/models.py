@@ -53,6 +53,12 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
+    location = db.Column(db.String(40))
+    title = db.Column(db.String(40))
+    about_me = db.Column(db.String(255))
+    website_url = db.Column(db.String(40))
+    twitter_url = db.Column(db.String(40))
+    github_url = db.Column(db.String(40))
     questions = db.relationship('Question', back_populates='user')
     answers = db.relationship('Answer', back_populates='user')
 
@@ -97,7 +103,8 @@ class Question(db.Model):
         add_prefix_for_prod('users.id')), nullable=False)
 
     user = db.relationship('User', back_populates='questions')
-    answers = db.relationship('Answer', back_populates='question', cascade="all, delete-orphan")
+    answers = db.relationship(
+        'Answer', back_populates='question', cascade="all, delete-orphan")
 
     def to_dict(self):
         return {
