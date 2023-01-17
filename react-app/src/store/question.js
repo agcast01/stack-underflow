@@ -41,8 +41,14 @@ const destroy = (questionId) => {
   }
 }
 
-export const getQuestions = () => async dispatch => {
-  const response = await fetch(`/api/questions/`)
+export const getQuestions = (filter='') => async dispatch => {
+  const response = await fetch(`/api/questions/`, {
+    method: 'put',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({filter})
+  })
 
   if (response.ok) {
     const questions = await response.json()
@@ -50,9 +56,16 @@ export const getQuestions = () => async dispatch => {
   }
 }
 
-export const getQuestion = (questionId) => async dispatch => {
-  const response = await fetch(`/api/questions/${questionId}`)
-
+export const getQuestion = (questionId, filter='sky') => async dispatch => {
+  
+  const response = await fetch(`/api/questions/${questionId}`, {
+    method: 'get',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({filter: filter})
+  })
+  
   if (response.ok) {
     const question = await response.json()
     dispatch(questionLoad(question))
