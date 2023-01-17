@@ -47,8 +47,17 @@ function SingleQuestion(){
 
     await dispatch(getQuestions())
   }
+
+  function userAnswerCheck(answers) {
+    if(!answers.length) return true
+    let tempArr = [...answers];
+    const answer = tempArr.shift();
+    if(answer.user.id === user.id) return false
+    return userAnswerCheck(tempArr)
+
+  }
   if(!question) return null
-  console.log(user)
+
   return (
     <div>
       <h2>
@@ -57,8 +66,10 @@ function SingleQuestion(){
       <h1>
         {question.title}
       </h1>
-      <button onClick={e => history.push(`/questions/edit/${question.id}`)}>Edit Question</button>
-      <button onClick={e => {handleDelete()}}>Delete</button>
+      {user.id === question.user.id&&(<div>
+        <button onClick={e => history.push(`/questions/edit/${question.id}`)}>Edit Question</button>
+        <button onClick={e => {handleDelete()}}>Delete</button>
+      </div>)}
       <p>{question.question}</p>
       <ul>
         {question.answers.map((answer) => {
@@ -66,23 +77,23 @@ function SingleQuestion(){
             <li key={answer.id}>
               <h3>{answer.user.username}</h3>
               <h2>{answer.answer}</h2>
-              <div>
+              {user.id === answer.user.id && <div>
               <button onClick={e => history.push(`/answers/${answer.id}`)}>Update</button>
               <button onClick={async e => {
                 await dispatch(destroyAnswer(answer.id))
                 await dispatch(getQuestions())
               }}>Delete</button>
-              </div>
-              <div>
+              </div>}
+              {user.id && user.id !== answer.user.id && <div>
                 <button onClick={async e => upvoteCheck(answer)} disabled={user === null}>Upvote</button>
                 <span>{answer.userUpvotes.length - answer.userDownvotes.length}</span>
                 <button onClick={async e => downvoteCheck(answer)} disabled={user === null}>Downvote</button>
-              </div>
+              </div>}
             </li>
           )
         } )}
       </ul>
-      <CreateAnswer/>
+      {userAnswerCheck(question.answers) && user.id !== question.user.id &&  <CreateAnswer/>}
     </div>
   )
 }
