@@ -37,7 +37,7 @@ function App() {
   if (!loaded) {
     return null;
   }
-
+  
   return (
     <BrowserRouter>
       <NavBar location={location} setLocation={setLocation} />
