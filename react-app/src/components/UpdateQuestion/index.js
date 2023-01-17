@@ -12,9 +12,7 @@ function UpdateQuestion(){
   const questions = useSelector(state => state.questions)
 
   const question = questions[questionId]
-  console.log(question)
 
-  console.log("user", user)
   const [text, setText] = useState(question.question)
   const [title, setTitle] = useState(question.title)
 
@@ -22,7 +20,7 @@ function UpdateQuestion(){
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let error = []
+
     question.question = text;
     question.title = title
 

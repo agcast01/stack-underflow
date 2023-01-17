@@ -8,7 +8,6 @@ function AllQuestions(){
   const dispatch = useDispatch()
   const history = useHistory()
   const questions = useSelector(state => state.questions)
-  console.log("questions!!!!!!!!!!", questions)
 
   useEffect(() => {
     dispatch(getQuestions())
