@@ -13,7 +13,7 @@ function SingleQuestion(){
 
 
   const question = questions[questionId]
-
+  console.log(question)
   const handleDelete = async () => {
     await dispatch(destroyQuestion(questionId)).then(() => history.push('/questions'))
     
@@ -47,7 +47,8 @@ function SingleQuestion(){
 
     await dispatch(getQuestions())
   }
-  if (!question || !user) return null
+  if(!question) return null
+  console.log(user)
   return (
     <div>
       <h2>
@@ -73,9 +74,9 @@ function SingleQuestion(){
               }}>Delete</button>
               </div>
               <div>
-                <button onClick={async e => upvoteCheck(answer)}>Upvote</button>
+                <button onClick={async e => upvoteCheck(answer)} disabled={user === null}>Upvote</button>
                 <span>{answer.userUpvotes.length - answer.userDownvotes.length}</span>
-                <button onClick={async e => downvoteCheck(answer)}>Downvote</button>
+                <button onClick={async e => downvoteCheck(answer)} disabled={user === null}>Downvote</button>
               </div>
             </li>
           )
