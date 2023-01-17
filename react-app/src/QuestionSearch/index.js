@@ -2,7 +2,7 @@ import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { getQuestions } from "../store/question"
 
-function QuestionSearch(){
+function QuestionSearch() {
     const dispatch = useDispatch()
     const [filter, setFilter] = useState()
 
@@ -10,13 +10,13 @@ function QuestionSearch(){
         e.preventDefault()
         await dispatch(getQuestions(filter))
     }
-    return(
-        <div>
-            <form onSubmit={e => handleSubmit(e)}>
-                <input type='text' value={filter} onChange={e => setFilter(e.target.value)}/>
-                <button type='submit'>Search</button>
-            </form>
-        </div>
+    return (
+        <form onSubmit={e => handleSubmit(e)} className='search'>
+            <span class="material-symbols-outlined">
+                search
+            </span>
+            <input type='text' value={filter} onChange={e => setFilter(e.target.value)} placeholder='Search...' />
+        </form>
     )
 }
 
