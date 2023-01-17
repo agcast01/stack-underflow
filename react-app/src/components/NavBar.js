@@ -2,41 +2,45 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
+import QuestionSearch from '../QuestionSearch';
+import { useSelector } from 'react-redux';
 
-const NavBar = () => {
+const NavBar = ({location, setLocation}) => {
+  const user = useSelector(state => state.session.user)
+  function checkUser() {
+    if (user === null) {
+      return (
+        <div>
+          <button  id='login'>
+            <NavLink to='/login' exact={true} activeClassName='active'>
+              Login
+            </NavLink>
+          </button>
+          <button id='signup'>
+            <NavLink to='/sign-up' exact={true} activeClassName='active' >
+              Sign Up
+            </NavLink>
+          </button>
+        </div>
+      )
+    }
+    return (
+      <div>
+        <button>{user.username}</button>
+        <LogoutButton />
+      </div>
+    )
+  }
+
   return (
-    <nav>
-      <ul>
-        <li>
-          <NavLink to='/' exact={true} activeClassName='active'>
-            Home
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to='/login' exact={true} activeClassName='active'>
-            Login
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to='/sign-up' exact={true} activeClassName='active'>
-            Sign Up
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to='/users' exact={true} activeClassName='active'>
-            Users
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to='/questions' exact={true} activeClassName='active'>
-            Questions
-          </NavLink>
-        </li>
-        <li>
-          <LogoutButton />
-        </li>
-      </ul>
-    </nav>
+    <div className='head'>
+      <nav className='navbar'>
+        <NavLink to='/' onClick={() => setLocation('/')}>stackunderflow</NavLink>
+        
+        <QuestionSearch />
+        {checkUser()}
+      </nav>
+    </div>
   );
 }
 
