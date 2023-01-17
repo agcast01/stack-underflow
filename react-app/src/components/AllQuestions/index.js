@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { getQuestions } from '../../store/question'
 import CreateQuestion from '../CreateQuestion'
+import QuestionSearch from '../../QuestionSearch'
 
 function AllQuestions(){
   const dispatch = useDispatch()
@@ -19,6 +20,7 @@ function AllQuestions(){
     <div>
       <h1>All Questions</h1>
       <div>
+      <QuestionSearch />
       <button onClick = {e => history.push(`/questions/new`)}>Ask Question</button>
       </div>
       <ul>
@@ -26,7 +28,7 @@ function AllQuestions(){
           return (
             <li key={question.id}>
               <Link to={`/questions/${question.id}`}>
-              {question.question}
+              {question.title}
               </Link>
             </li>
           )

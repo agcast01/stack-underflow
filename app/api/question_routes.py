@@ -1,17 +1,24 @@
 from flask import Blueprint, jsonify, request, redirect
 from app.models import Question, db
 from flask_login import current_user
-from ..forms import QuestionForm
+from ..forms import QuestionForm, FilterQuestionForm
 from flask_login import login_required
 from .auth_routes import validation_errors_to_error_messages
 
 question_routes = Blueprint('questions', __name__)
 
 
-@question_routes.route('/')
+@question_routes.route('/', methods=['GET', 'PUT'])
 def questions():
-    questions = Question.query.all()
-    return {"questions": [question.to_dict() for question in questions]}, 200
+
+    form = FilterQuestionForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        questions = Question.query.all()
+        questions = list(filter(lambda question: form.data['filter'].lower() in question.title.lower() ,questions))
+        return {"questions": [question.to_dict() for question in questions]}, 200
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
 @question_routes.route('/<int:id>')
