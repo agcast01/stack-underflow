@@ -82,14 +82,11 @@ def undo_users():
         db.session.execute(f"TRUNCATE table {SCHEMA}.users RESTART IDENTITY CASCADE;")
         db.session.execute(f"TRUNCATE table {SCHEMA}.questions RESTART IDENTITY CASCADE;")
         db.session.execute(f"TRUNCATE table {SCHEMA}.answers RESTART IDENTITY CASCADE;")
-        db.session.execute(f"TRUNCATE table {SCHEMA}.user_answers_upvotes RESTART IDENTITY CASCADE;")
-        db.session.execute(f"TRUNCATE table {SCHEMA}.user_answers_downvotes RESTART IDENTITY CASCADE;")
+
     else:
         db.session.execute("DELETE FROM users")
         db.session.execute("DELETE FROM questions")
         db.session.execute("DELETE FROM answers")
-        db.session.execute("DELETE FROM user_answer_upvotes")
-        db.session.execute("DELETE FROM user_answer_downvotes")
 
 
     db.session.commit()
