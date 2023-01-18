@@ -25,7 +25,7 @@ user_answer_upvotes = db.Table(
         db.ForeignKey(add_prefix_for_prod('answers.id')),
         primary_key=True
     ),
-    schema=SCHEMA
+    schema = SCHEMA if environment == "production" else ''
 )
 
 user_answer_downvotes = db.Table(
@@ -42,7 +42,7 @@ user_answer_downvotes = db.Table(
         db.ForeignKey(add_prefix_for_prod('answers.id')),
         primary_key=True
     ),
-    schema=SCHEMA
+    schema = SCHEMA if environment == "production" else ''
 )
 
 
