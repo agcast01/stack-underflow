@@ -29,7 +29,7 @@ function User() {
         <h2>{user.username}</h2>
         <p>{user.location !== null && (<> <span class="material-symbols-outlined">
           location_on
-        </span> user.location</>)}</p>
+        </span> {user.location}</>)}</p>
         {currUser !== null && user.id === currUser.id &&
           <Link to={`/users/${userId}/edit`}>Edit Profile</Link>
         }

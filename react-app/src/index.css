@@ -226,3 +226,10 @@ ul {
 .user-listings p {
     padding: 10px;
 }
+
+input:focus-visible, textarea:focus-visible {
+    box-shadow: 0 0 4px cyan;
+    border: 1px solid rgba(0, 136, 255, 0.34);
+    border-radius: 3px;
+    outline: none;
+}
