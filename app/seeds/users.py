@@ -9,46 +9,60 @@ def seed_users():
     demo = User(
         username='Demo', email='demo@aa.io', password='password')
     marnie = User(
-        username='marnie', email='marnie@aa.io', password='password')
+        username='Marnie', email='marnie@aa.io', password='password')
     bobbie = User(
-        username='bobbie', email='bobbie@aa.io', password='password')
+        username='Mobbie', email='bobbie@aa.io', password='password')
+    gus = User(
+        username="Gus", email='gus@aa.io', password='password')
+    dane = User(
+        username="Dane", email='dane@aa.io', password='password')
 
     db.session.add(demo)
     db.session.add(marnie)
     db.session.add(bobbie)
+    db.session.add(gus)
+    db.session.add(dane)
     db.session.commit()
 
     #Question Seed Data
     question1 = Question(
-        question='What color is the sky?', userId=1
+        question='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ipsum ligula, iaculis eu dapibus at, sollicitudin sed nunc. Nulla rutrum ac lectus vitae fringilla. Sed feugiat quis erat ut lacinia. Donec tincidunt vel est vitae consectetur. Proin a odio sit amet erat porta volutpat sit amet at dolor. Praesent varius fermentum nibh eu rutrum. Quisque auctor risus aliquam, vehicula lorem sed, dictum libero. Aliquam vestibulum massa purus, vel tincidunt quam maximus in.?', userId=1, title="Just put giant red text all over this dude's screen"
     )
     question2 = Question(
-        question='How bright is the sun?', userId=2
+        question='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ipsum ligula, iaculis eu dapibus at, sollicitudin sed nunc. Nulla rutrum ac lectus vitae fringilla. Sed feugiat quis erat ut lacinia. Donec tincidunt vel est vitae consectetur. Proin a odio sit amet erat porta volutpat sit amet at dolor. Praesent varius fermentum nibh eu rutrum. Quisque auctor risus aliquam, vehicula lorem sed, dictum libero. Aliquam vestibulum massa purus, vel tincidunt quam maximus in.?', userId=2, title=' HELP!! Giant red text all over my screen!'
     )
     question3 = Question(
-        question='How heavy are clouds?', userId=3
+        question='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ipsum ligula, iaculis eu dapibus at, sollicitudin sed nunc. Nulla rutrum ac lectus vitae fringilla. Sed feugiat quis erat ut lacinia. Donec tincidunt vel est vitae consectetur. Proin a odio sit amet erat porta volutpat sit amet at dolor. Praesent varius fermentum nibh eu rutrum. Quisque auctor risus aliquam, vehicula lorem sed, dictum libero. Aliquam vestibulum massa purus, vel tincidunt quam maximus in.', userId=3, title='Huge Lorem Ipsum fan, unable to read it'
+    )
+    question4 = Question(
+        question='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ipsum ligula, iaculis eu dapibus at, sollicitudin sed nunc. Nulla rutrum ac lectus vitae fringilla. Sed feugiat quis erat ut lacinia. Donec tincidunt vel est vitae consectetur. Proin a odio sit amet erat porta volutpat sit amet at dolor. Praesent varius fermentum nibh eu rutrum. Quisque auctor risus aliquam, vehicula lorem sed, dictum libero. Aliquam vestibulum massa purus, vel tincidunt quam maximus in.', userId=4, title='What does this paragraph mean?'
+    )
+    question5 = Question(
+        question='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ipsum ligula, iaculis eu dapibus at, sollicitudin sed nunc. Nulla rutrum ac lectus vitae fringilla. Sed feugiat quis erat ut lacinia. Donec tincidunt vel est vitae consectetur. Proin a odio sit amet erat porta volutpat sit amet at dolor. Praesent varius fermentum nibh eu rutrum. Quisque auctor risus aliquam, vehicula lorem sed, dictum libero. Aliquam vestibulum massa purus, vel tincidunt quam maximus in.', userId=5, title='How could I make a real bug, like a scorpion, out of computer bugs?'
     )
 
     db.session.add(question1)
     db.session.add(question2)
     db.session.add(question3)
+    db.session.add(question4)
+    db.session.add(question5)
     db.session.commit()
 
     #Answer Seed Data
     answer1 = Answer(
-        answer='Blue', questionId=1, userId=2
+        answer='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ipsum ligula, iaculis eu dapibus at, sollicitudin sed nunc. Nulla rutrum ac lectus vitae fringilla. Sed feugiat quis erat ut lacinia. Donec tincidunt vel est vitae consectetur. Proin a odio sit amet erat porta volutpat sit amet at dolor. Praesent varius fermentum nibh eu rutrum. Quisque auctor risus aliquam, vehicula lorem sed, dictum libero. Aliquam vestibulum massa purus, vel tincidunt quam maximus in.', questionId=1, userId=2
     )
     demo = User.query.get(1)
     answer1.user_upvotes.append(demo)
     bobbie = User.query.get(3)
     answer1.user_upvotes.append(bobbie)
     answer2 = Answer(
-        answer='Really bright', questionId=2, userId=3
+        answer='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ipsum ligula, iaculis eu dapibus at, sollicitudin sed nunc. Nulla rutrum ac lectus vitae fringilla. Sed feugiat quis erat ut lacinia. Donec tincidunt vel est vitae consectetur. Proin a odio sit amet erat porta volutpat sit amet at dolor. Praesent varius fermentum nibh eu rutrum. Quisque auctor risus aliquam, vehicula lorem sed, dictum libero. Aliquam vestibulum massa purus, vel tincidunt quam maximus in.', questionId=2, userId=3
     )
     marnie = User.query.get(2)
     answer2.user_upvotes.append(marnie)
     answer3 = Answer(
-        answer='Heavy', questionId=3, userId=1
+        answer='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ipsum ligula, iaculis eu dapibus at, sollicitudin sed nunc. Nulla rutrum ac lectus vitae fringilla. Sed feugiat quis erat ut lacinia. Donec tincidunt vel est vitae consectetur. Proin a odio sit amet erat porta volutpat sit amet at dolor. Praesent varius fermentum nibh eu rutrum. Quisque auctor risus aliquam, vehicula lorem sed, dictum libero. Aliquam vestibulum massa purus, vel tincidunt quam maximus in.', questionId=3, userId=1
     )
     db.session.add(answer1)
     db.session.add(answer2)
@@ -77,5 +91,5 @@ def undo_users():
         db.session.execute("DELETE FROM user_answer_upvotes")
         db.session.execute("DELETE FROM user_answer_downvotes")
 
-        
+
     db.session.commit()

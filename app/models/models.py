@@ -2,11 +2,13 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
+
 def add_prefix_for_prod(attr):
     if environment == "production":
         return f"{SCHEMA}.{attr}"
     else:
         return attr
+
 
 user_answer_upvotes = db.Table(
     "user_answer_upvotes",
@@ -40,6 +42,7 @@ user_answer_downvotes = db.Table(
     )
 )
 
+
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
 
@@ -50,6 +53,12 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
+    location = db.Column(db.String(40))
+    title = db.Column(db.String(40))
+    about_me = db.Column(db.String(255))
+    website_url = db.Column(db.String(40))
+    twitter_url = db.Column(db.String(40))
+    github_url = db.Column(db.String(40))
     questions = db.relationship('Question', back_populates='user')
     answers = db.relationship('Answer', back_populates='user')
 
@@ -80,18 +89,43 @@ class User(db.Model, UserMixin):
         return {
             'id': self.id,
             'username': self.username,
-            'email': self.email
+            'email': self.email,
+            'location': self.location,
+            'title': self.title,
+            'about_me': self.about_me,
+            'website_url': self.website_url,
+            'twitter_url': self.twitter_url,
+            'github_url': self.github_url,
+            "answers": [answer.answer for answer in self.answers],
+            "answer_upvotes": [answer.id for answer in self.answer_upvotes],
+            "answer_downvotes": [answer.id for answer in self.answer_downvotes]
         }
+
 
 class Question(db.Model):
     __tablename__ = 'questions'
 
     id = db.Column(db.Integer, primary_key=True)
-    question = db.Column(db.String, nullable = False)
-    userId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
+    question = db.Column(db.String, nullable=False)
+    title = db.Column(db.String, nullable=False)
+    userId = db.Column(db.Integer, db.ForeignKey(
+        add_prefix_for_prod('users.id')), nullable=False)
 
     user = db.relationship('User', back_populates='questions')
-    answers = db.relationship('Answer', back_populates='question')
+    answers = db.relationship(
+        'Answer', back_populates='question', cascade="all, delete-orphan")
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "question": self.question,
+            "userId": self.userId,
+            "answers": [answer.answer for answer in self.answers],
+            "user": self.user.to_dict(),
+            "title": self.title
+        }
+
+
 
     def to_dict(self):
         return {
@@ -106,8 +140,10 @@ class Answer(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     answer = db.Column(db.String, nullable=False)
-    questionId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('questions.id')), nullable=False)
-    userId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
+    questionId = db.Column(db.Integer, db.ForeignKey(
+        add_prefix_for_prod('questions.id')), nullable=False)
+    userId = db.Column(db.Integer, db.ForeignKey(
+        add_prefix_for_prod('users.id')), nullable=False)
 
     user = db.relationship('User', back_populates='answers')
     question = db.relationship('Question', back_populates='answers')
@@ -128,5 +164,9 @@ class Answer(db.Model):
             "id": self.id,
             "answer": self.answer,
             "questionId": self.questionId,
+            "user": self.user.to_dict(),
+            "userUpvotes": [user.id for user in self.user_upvotes],
+            "userDownvotes": [user.id for user in self.user_downvotes]
             "userId": self.userId
+
         }
