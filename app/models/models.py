@@ -24,7 +24,8 @@ user_answer_upvotes = db.Table(
         db.Integer,
         db.ForeignKey(add_prefix_for_prod('answers.id')),
         primary_key=True
-    )
+    ),
+    schema=SCHEMA
 )
 
 user_answer_downvotes = db.Table(
@@ -40,7 +41,8 @@ user_answer_downvotes = db.Table(
         db.Integer,
         db.ForeignKey(add_prefix_for_prod('answers.id')),
         primary_key=True
-    )
+    ),
+    schema=SCHEMA
 )
 
 
@@ -132,7 +134,7 @@ class Question(db.Model):
 
 class Answer(db.Model):
     __tablename__ = 'answers'
-    
+
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
 
