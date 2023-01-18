@@ -89,7 +89,16 @@ class User(db.Model, UserMixin):
         return {
             'id': self.id,
             'username': self.username,
-            'email': self.email
+            'email': self.email,
+            'location': self.location,
+            'title': self.title,
+            'about_me': self.about_me,
+            'website_url': self.website_url,
+            'twitter_url': self.twitter_url,
+            'github_url': self.github_url,
+            "answers": [answer.to_dict() for answer in self.answers],
+            "answer_upvotes": [answer.id for answer in self.answer_upvotes],
+            "answer_downvotes": [answer.id for answer in self.answer_downvotes]
         }
 
 

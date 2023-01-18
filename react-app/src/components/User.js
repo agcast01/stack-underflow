@@ -33,7 +33,7 @@ function User() {
         <strong>Email</strong> {user.email}
       </li>
       <li>
-        <Link to={`users/${userId}/edit`}>Edit Profile</Link>
+        <Link to={`/users/${userId}/edit`}>Edit Profile</Link>
       </li>
     </ul>
   );
