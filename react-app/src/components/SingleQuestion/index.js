@@ -15,7 +15,7 @@ function SingleQuestion() {
   const question = questions[questionId]
   console.log(question)
   const handleDelete = async () => {
-    await dispatch(destroyQuestion(questionId)).then(() => history.push('/questions'))
+    await dispatch(destroyQuestion(questionId)).then(() => history.push('/'))
 
   }
 
