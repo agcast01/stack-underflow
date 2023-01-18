@@ -15,13 +15,13 @@ user_answer_upvotes = db.Table(
     db.Column(
         "user_id",
         db.Integer,
-        db.ForeignKey(add_prefix_for_prod('users.id')),
+        db.ForeignKey('users.id'),
         primary_key=True
     ),
     db.Column(
         "answer_id",
         db.Integer,
-        db.ForeignKey(add_prefix_for_prod('answers.id')),
+        db.ForeignKey('answers.id'),
         primary_key=True
     )
 )
@@ -31,13 +31,13 @@ user_answer_downvotes = db.Table(
     db.Column(
         "user_id",
         db.Integer,
-        db.ForeignKey(add_prefix_for_prod('users.id')),
+        db.ForeignKey('users.id'),
         primary_key=True
     ),
     db.Column(
         "answer_id",
         db.Integer,
-        db.ForeignKey(add_prefix_for_prod('answers.id')),
+        db.ForeignKey('answers.id'),
         primary_key=True
     )
 )
