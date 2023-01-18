@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { getQuestions } from '../../store/question'
+import CreateQuestion from '../CreateQuestion'
 import './index.css'
 
 function AllQuestions(){

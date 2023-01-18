@@ -120,10 +120,12 @@ class Question(db.Model):
             "id": self.id,
             "question": self.question,
             "userId": self.userId,
-            "answers": [answer.to_dict() for answer in self.answers],
+            "answers": [answer.answer for answer in self.answers],
             "user": self.user.to_dict(),
             "title": self.title
         }
+
+
 
 
 class Answer(db.Model):

@@ -12,7 +12,6 @@ function UpdateQuestion() {
   const questions = useSelector(state => state.questions)
 
   const question = questions[questionId]
-
   const [text, setText] = useState(question.question)
   const [title, setTitle] = useState(question.title)
 
@@ -20,7 +19,6 @@ function UpdateQuestion() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     question.question = text;
     question.title = title
 

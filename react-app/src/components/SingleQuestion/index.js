@@ -13,7 +13,6 @@ function SingleQuestion() {
 
 
   const question = questions[questionId]
-  console.log(question)
   const handleDelete = async () => {
     await dispatch(destroyQuestion(questionId)).then(() => history.push('/questions'))
 
@@ -59,8 +58,8 @@ function SingleQuestion() {
     return userAnswerCheck(tempArr)
 
   }
-  if (!question) return null
 
+  if (!question) return null
   return (
     <div className="componentBody">
       <div id="question_answers">
