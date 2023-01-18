@@ -11,17 +11,18 @@ def add_prefix_for_prod(attr):
 
 
 user_answer_upvotes = db.Table(
+    
     "user_answer_upvotes",
     db.Column(
         "user_id",
         db.Integer,
-        db.ForeignKey('users.id'),
+        db.ForeignKey(add_prefix_for_prod('users.id')),
         primary_key=True
     ),
     db.Column(
         "answer_id",
         db.Integer,
-        db.ForeignKey('answers.id'),
+        db.ForeignKey(add_prefix_for_prod('answers.id')),
         primary_key=True
     )
 )
@@ -31,13 +32,13 @@ user_answer_downvotes = db.Table(
     db.Column(
         "user_id",
         db.Integer,
-        db.ForeignKey('users.id'),
+        db.ForeignKey(add_prefix_for_prod('users.id')),
         primary_key=True
     ),
     db.Column(
         "answer_id",
         db.Integer,
-        db.ForeignKey('answers.id'),
+        db.ForeignKey(add_prefix_for_prod('answers.id')),
         primary_key=True
     )
 )
@@ -105,6 +106,9 @@ class User(db.Model, UserMixin):
 class Question(db.Model):
     __tablename__ = 'questions'
 
+    if environment == "production":
+        __table_args__ = {'schema': SCHEMA}
+
     id = db.Column(db.Integer, primary_key=True)
     question = db.Column(db.String, nullable=False)
     title = db.Column(db.String, nullable=False)
@@ -128,6 +132,9 @@ class Question(db.Model):
 
 class Answer(db.Model):
     __tablename__ = 'answers'
+    
+    if environment == "production":
+        __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
     answer = db.Column(db.String, nullable=False)
