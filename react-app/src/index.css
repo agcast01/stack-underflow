@@ -181,3 +181,48 @@ ul {
     resize: none;
     width: 300px;
 }
+
+.user-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.user {
+    width: 33%;
+    
+}
+
+.user-name {
+    color: hsl(206deg 100% 52%);
+}
+
+.user-name:hover {
+    color: hsl(206deg 100% 40%);
+    cursor: pointer;
+}
+
+.user-listings {
+    border: 1px solid rgba(0, 0, 0, 0.369);
+    border-radius: 5px;
+    box-sizing: border-box;
+    padding: 0;
+    margin: auto;
+}
+
+.user-page {
+    padding: 20px;
+}
+.user-info {
+    width: fit-content;
+    margin: auto;
+}
+
+.user-listings li {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.369);
+    padding: 0;
+    margin: 0;
+}
+
+.user-listings p {
+    padding: 10px;
+}
