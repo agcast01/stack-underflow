@@ -13,6 +13,7 @@ import SingleQuestion from './components/SingleQuestion';
 import CreateQuestion from './components/CreateQuestion';
 import UpdateQuestion from './components/UpdateQuestion';
 import UpdateAnswer from './components/UpdateAnswer';
+import UpdateProfile from './components/UpdateProfile';
 import { getQuestions } from './store/question';
 import { getAnswers } from './store/answer';
 import './index.css'
@@ -36,45 +37,48 @@ function App() {
   if (!loaded) {
     return null;
   }
-  
+
   return (
     <BrowserRouter>
-      <NavBar location={location} setLocation={setLocation}/>
+      <NavBar location={location} setLocation={setLocation} />
       <div className='main-body'>
-        <SideBar location={location} setLocation={setLocation}/>
+        <SideBar location={location} setLocation={setLocation} />
         <div className='content'>
-        <Switch >
-          <Route path='/login' exact={true}>
-            <LoginForm />
-          </Route>
-          <Route path='/sign-up' exact={true}>
-            <SignUpForm />
-          </Route>
-          <ProtectedRoute path='/users' exact={true} >
-            <UsersList />
-          </ProtectedRoute>
-          <ProtectedRoute path='/users/:userId' exact={true} >
-            <User />
-          </ProtectedRoute>
-          <Route path='/' exact={true} >
-            <AllQuestions location={location} setLocation={setLocation}/>
-          </Route>
-          <Route path="/questions/new">
-            <CreateQuestion />
-          </Route>
-          <Route path="/questions/edit/:questionId">
-            <UpdateQuestion />
-          </Route>
-          <Route exact path="/questions/:questionId">
-            <SingleQuestion />
-          </Route>
-          <Route path="/answers/:answerId">
-            <UpdateAnswer />
-          </Route>
-        </Switch>
+          <Switch >
+            <Route path='/login' exact={true}>
+              <LoginForm />
+            </Route>
+            <Route path='/sign-up' exact={true}>
+              <SignUpForm />
+            </Route>
+            <ProtectedRoute path='/users' exact={true} >
+              <UsersList />
+            </ProtectedRoute>
+            <ProtectedRoute path='/users/:userId' exact={true} >
+              <User />
+            </ProtectedRoute>
+            <Route path='/' exact={true} >
+              <AllQuestions location={location} setLocation={setLocation} />
+            </Route>
+            <Route path="/questions/new">
+              <CreateQuestion />
+            </Route>
+            <Route path="/questions/edit/:questionId">
+              <UpdateQuestion />
+            </Route>
+            <Route exact path="/questions/:questionId">
+              <SingleQuestion />
+            </Route>
+            <Route path="/answers/:answerId">
+              <UpdateAnswer />
+            </Route>
+            <Route path="/users/:userId/edit">
+              <UpdateProfile />
+            </Route>
+          </Switch>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </BrowserRouter>
 
   );
