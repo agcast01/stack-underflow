@@ -55,7 +55,7 @@ function SingleQuestion() {
     if (!answers.length) return true
     let tempArr = [...answers];
     const answer = tempArr.shift();
-    if (answer.user.id === user.id) return false
+    if ( user !== null && answer.user.id === user.id) return false
     return userAnswerCheck(tempArr)
 
   }
@@ -69,10 +69,10 @@ function SingleQuestion() {
         </h1>
         <p id="question">{question.question}</p>
         <div id="under_question">
-          {user.id === question.user.id && (<div>
+          {user !== null && user.id === question.user.id && (<div>
             <button className='user_buttons edit_button' onClick={e => history.push(`/questions/edit/${question.id}`)}>Edit</button>
           </div>)}
-          {user.id === question.user.id && (<div>
+          {user !== null && user.id === question.user.id && (<div>
             <button className='user_buttons delete_button' onClick={e => { handleDelete() }}>Delete</button>
           </div>)}
           <p className="username">
@@ -87,7 +87,7 @@ function SingleQuestion() {
             {question.answers.map((answer) => {
               return (
                 <div id='answer_body'>
-                  {user.id && user.id !== answer.user.id && <div className="votes">
+                  {user !== null && user.id !== answer.user.id && <div className="votes">
                     <span class="material-symbols-outlined" onClick={async e => upvoteCheck(answer)} >
                       arrow_drop_up
                     </span>
@@ -99,10 +99,10 @@ function SingleQuestion() {
                   <li key={answer.id}>
                     <p>{answer.answer}</p>
                     <div id="under_answer">
-                      {user.id === answer.user.id && (<div>
+                      {user !== null && user.id === answer.user.id && (<div>
                         <button className='user_buttons edit_button' onClick={e => history.push(`/answers/${answer.id}`)}>Edit</button>
                       </div>)}
-                      {user.id === answer.user.id && (<div>
+                      {user !== null && user.id === answer.user.id && (<div>
                         <button className='user_buttons delete_button' onClick={async e => {
                           await dispatch(destroyAnswer(answer.id))
                           await dispatch(getQuestions())
@@ -116,7 +116,7 @@ function SingleQuestion() {
             })}
           </ul>
         </div>
-        {userAnswerCheck(question.answers) && user.id !== question.user.id && <CreateAnswer />}
+        {userAnswerCheck(question.answers) && user !== null && user.id !== question.user.id && <CreateAnswer />}
       </div>
     </div>
   )
