@@ -61,7 +61,8 @@
 }
 
 #question{
-  padding-left: 2%
+  padding-left: 2%;
+  overflow-wrap: break-word;
 }
 
 .username{
