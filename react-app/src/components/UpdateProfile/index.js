@@ -33,41 +33,60 @@ const UpdateProfile = () => {
   return (
     <div>
       <form onSubmit={handleSubmit} className='form'>
-        <input
-          type='text'
-          value={location}
-          onChange={e => setLocation(e.target.value)}
-          placeholder='Location'
-        />
-        <input
-          type='text'
-          value={title}
-          onChange={e => setTitle(e.target.value)}
-          placeholder='Title'
-        />
-        <textarea
-          value={about}
-          onChange={e => setAbout(e.target.value)}
-          placeholder='About'
-        />
-        <input
-          type='url'
-          value={website}
-          onChange={e => setWebsite(e.target.value)}
-          placeholder='Website Url'
-        />
-        <input
-          type='url'
-          value={twitter}
-          onChange={e => setTwitter(e.target.value)}
-          placeholder='Twitter Url'
-        />
+        <div>
+          <label>Location</label>
+          <input
+            type='text'
+            value={location}
+            onChange={e => setLocation(e.target.value)}
+          />
+        </div>
+        <div>
+          <label>Title</label>
+          <input
+            type='text'
+            value={title}
+            onChange={e => setTitle(e.target.value)}
+
+          />
+        </div>
+        <div>
+          <label>About Me</label>
+          <textarea
+            value={about}
+            onChange={e => setAbout(e.target.value)}
+
+            className="textarea"
+          />
+        </div>
+        <div>
+          <label>Website Url</label>
+          <input
+            type='url'
+            value={website}
+            onChange={e => setWebsite(e.target.value)}
+
+          />
+        </div>
+        <div>
+          <label>Twitter Url</label>
+
+          <input
+            type='url'
+            value={twitter}
+            onChange={e => setTwitter(e.target.value)}
+
+          />
+        </div>
+        <div>
+          <label>Github Url</label>
+        
         <input
           type='url'
           value={github}
           onChange={e => setGithub(e.target.value)}
-          placeholder='Github Url'
         />
+        </div>
         <button disabled={user === null}>Update Profile</button>
       </form>
     </div>

@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom'
 
 function User() {
   const [user, setUser] = useState({});
   const { userId } = useParams();
+  const currUser = useSelector(state => state.session.user)
 
   useEffect(() => {
     if (!userId) {
@@ -32,9 +34,9 @@ function User() {
       <li>
         <strong>Email</strong> {user.email}
       </li>
-      <li>
+      {currUser !== null && user.id === currUser.id && <li>
         <Link to={`/users/${userId}/edit`}>Edit Profile</Link>
-      </li>
+      </li>}
     </ul>
   );
 }
