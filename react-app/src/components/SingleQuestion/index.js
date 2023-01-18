@@ -3,7 +3,7 @@ import { useHistory, useParams } from 'react-router-dom'
 import { destroyQuestion, getQuestions } from '../../store/question'
 import CreateAnswer from '../CreateAnswer'
 import { destroyAnswer, addUpvote, addDownvote, removeDownvote, removeUpvote } from '../../store/answer'
-
+import './SingleQuestion.css'
 function SingleQuestion(){
   const dispatch = useDispatch()
   const history = useHistory()
@@ -16,7 +16,7 @@ function SingleQuestion(){
   console.log(question)
   const handleDelete = async () => {
     await dispatch(destroyQuestion(questionId)).then(() => history.push('/questions'))
-    
+
   }
 
   const upvoteCheck = async (answer) => {
@@ -59,41 +59,58 @@ function SingleQuestion(){
   if(!question) return null
 
   return (
-    <div>
-      <h2>
-        {question.user.username}
-      </h2>
-      <h1>
+    <div className="componentBody">
+      <div id="question_answers">
+      <h1 id='title'>
         {question.title}
       </h1>
-      {user.id === question.user.id&&(<div>
-        <button onClick={e => history.push(`/questions/edit/${question.id}`)}>Edit Question</button>
-        <button onClick={e => {handleDelete()}}>Delete</button>
-      </div>)}
-      <p>{question.question}</p>
-      <ul>
+      <p id="question">{question.question}</p>
+      <div id="under_question">
+        {user.id === question.user.id&&(<div>
+        <button className='user_buttons edit_button' onClick={e => history.push(`/questions/edit/${question.id}`)}>Edit</button>
+        </div>)}
+        {user.id === question.user.id&&(<div>
+        <button className='user_buttons delete_button' onClick={e => {handleDelete()}}>Delete</button>
+        </div>)}
+      <p className = "username">
+        asked by {question.user.username}
+      </p>
+      </div>
+      <div id="answer_count">
+      {question.answers.length === 1 ? <p>{question.answers.length} Answer </p> : <p>{question.answers.length} Answers</p>}
+      </div>
+      <div>
+      <ul id="answers">
         {question.answers.map((answer) => {
           return (
+            <div id='answer_body'>
+              {user.id && user.id !== answer.user.id && <div className="votes">
+                <button onClick={async e => upvoteCheck(answer)} disabled={user === null}>^</button>
+                <span>{answer.userUpvotes.length - answer.userDownvotes.length}</span>
+                <button onClick={async e => downvoteCheck(answer)} disabled={user === null}>v</button>
+              </div>}
             <li key={answer.id}>
-              <h3>{answer.user.username}</h3>
-              <h2>{answer.answer}</h2>
-              {user.id === answer.user.id && <div>
-              <button onClick={e => history.push(`/answers/${answer.id}`)}>Update</button>
-              <button onClick={async e => {
+              <p>{answer.answer}</p>
+              <div id="under_answer">
+              {user.id === answer.user.id&&(<div>
+              <button className='user_buttons edit_button' onClick={e => history.push(`/answers/${answer.id}`)}>Edit</button>
+              </div>)}
+              {user.id === answer.user.id&&(<div>
+              <button className='user_buttons delete_button' onClick={async e => {
                 await dispatch(destroyAnswer(answer.id))
                 await dispatch(getQuestions())
               }}>Delete</button>
-              </div>}
-              {user.id && user.id !== answer.user.id && <div>
-                <button onClick={async e => upvoteCheck(answer)} disabled={user === null}>Upvote</button>
-                <span>{answer.userUpvotes.length - answer.userDownvotes.length}</span>
-                <button onClick={async e => downvoteCheck(answer)} disabled={user === null}>Downvote</button>
-              </div>}
+              </div>)}
+              <p className='username'>{answer.user.username}</p>
+              </div>
             </li>
+            </div>
           )
         } )}
       </ul>
+      </div>
       {userAnswerCheck(question.answers) && user.id !== question.user.id &&  <CreateAnswer/>}
+      </div>
     </div>
   )
 }
