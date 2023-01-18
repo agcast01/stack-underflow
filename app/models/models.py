@@ -127,6 +127,13 @@ class Question(db.Model):
 
 
 
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "question": self.question,
+            "userId": self.userId
+        }
+
 
 class Answer(db.Model):
     __tablename__ = 'answers'
@@ -160,4 +167,6 @@ class Answer(db.Model):
             "user": self.user.to_dict(),
             "userUpvotes": [user.id for user in self.user_upvotes],
             "userDownvotes": [user.id for user in self.user_downvotes]
+            "userId": self.userId
+
         }
