@@ -4,6 +4,7 @@ import { NavLink, useHistory } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
 import QuestionSearch from '../QuestionSearch';
 import { useSelector } from 'react-redux';
+import '../components/auth/auth.css'
 
 const NavBar = ({location, setLocation}) => {
   const user = useSelector(state => state.session.user)
@@ -27,7 +28,7 @@ const NavBar = ({location, setLocation}) => {
     }
     return (
       <div>
-        <button onClick={() => history.push(`/users/${user.id}`)}>{user.username}</button>
+        <button id='userbutton' onClick={() => history.push(`/users/${user.id}`)}>{user.username}</button>
         <LogoutButton />
       </div>
     )
@@ -37,7 +38,7 @@ const NavBar = ({location, setLocation}) => {
     <div className='head'>
       <nav className='navbar'>
         <NavLink to='/' onClick={() => setLocation('/')}>stackunderflow</NavLink>
-        
+
         <QuestionSearch />
         {checkUser()}
       </nav>

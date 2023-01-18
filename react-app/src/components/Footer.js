@@ -17,9 +17,9 @@ function Footer() {
                 <li>andrewrduong</li>
             </ul>
             <ul className="footer-row">
-                <li>Alex Castillo</li>
-                <li>agcast01</li>
-                <li>AlexCastillo</li>
+                <li>Chase Towe</li>
+                <li>ChaseTowe</li>
+                <li>Chase Towe</li>
             </ul>
         </div>
     )
