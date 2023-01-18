@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from "react-redux"
 import { updateQuestion } from "../../store/question"
 import { useHistory, useParams } from "react-router"
 
-function UpdateQuestion(){
+function UpdateQuestion() {
   const dispatch = useDispatch()
   const history = useHistory()
-  const {questionId} = useParams()
- 
+  const { questionId } = useParams()
+
   const user = useSelector(state => state.session.user)
   const questions = useSelector(state => state.questions)
 
@@ -29,20 +29,20 @@ function UpdateQuestion(){
   }
 
   return (
-   <div>
-    <form onSubmit = {handleSubmit}>
-      <input 
-      type='text' 
-      value={title}
-      onChange={e => setTitle(e.target.value)}
-      />
-      <textarea
-      value={text}
-      onChange={(e) => setText(e.target.value)}
-      />
-      <button disabled={user === null}>Update</button>
-    </form>
-   </div>
+    <div>
+      <form onSubmit={handleSubmit}>
+        <input
+          type='text'
+          value={title}
+          onChange={e => setTitle(e.target.value)}
+        />
+        <textarea
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+        />
+        <button disabled={user === null}>Update</button>
+      </form>
+    </div>
   )
 }
 

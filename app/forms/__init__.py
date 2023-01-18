@@ -4,4 +4,5 @@ from .question_form import QuestionForm
 from .answer_form import AnswerForm
 from .upvote_form import UpvoteForm
 from .downvote_form import DownvoteForm
+from .updateprofile_form import UpdateProfile
 from .filter_question_form import FilterQuestionForm

@@ -53,6 +53,12 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
+    location = db.Column(db.String(40))
+    title = db.Column(db.String(40))
+    about_me = db.Column(db.String(255))
+    website_url = db.Column(db.String(40))
+    twitter_url = db.Column(db.String(40))
+    github_url = db.Column(db.String(40))
     questions = db.relationship('Question', back_populates='user')
     answers = db.relationship('Answer', back_populates='user')
 
@@ -83,7 +89,16 @@ class User(db.Model, UserMixin):
         return {
             'id': self.id,
             'username': self.username,
-            'email': self.email
+            'email': self.email,
+            'location': self.location,
+            'title': self.title,
+            'about_me': self.about_me,
+            'website_url': self.website_url,
+            'twitter_url': self.twitter_url,
+            'github_url': self.github_url,
+            "answers": [answer.to_dict() for answer in self.answers],
+            "answer_upvotes": [answer.id for answer in self.answer_upvotes],
+            "answer_downvotes": [answer.id for answer in self.answer_downvotes]
         }
 
 
@@ -97,7 +112,8 @@ class Question(db.Model):
         add_prefix_for_prod('users.id')), nullable=False)
 
     user = db.relationship('User', back_populates='questions')
-    answers = db.relationship('Answer', back_populates='question', cascade="all, delete-orphan")
+    answers = db.relationship(
+        'Answer', back_populates='question', cascade="all, delete-orphan")
 
     def to_dict(self):
         return {
