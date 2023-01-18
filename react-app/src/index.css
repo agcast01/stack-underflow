@@ -99,6 +99,7 @@ ul {
 
 .sidebar li {
     padding: 5px;
+    box-sizing: border-box;
 }
 
 .sidebar a {

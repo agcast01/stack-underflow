@@ -30,6 +30,9 @@ function CreateAnswer(){
 
   return (
    <div>
+    <div>
+      Your Answer
+    </div>
     <form onSubmit = {handleSubmit}>
       <textarea
       value={text}
