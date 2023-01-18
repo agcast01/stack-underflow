@@ -1,12 +1,13 @@
 
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
 import QuestionSearch from '../QuestionSearch';
 import { useSelector } from 'react-redux';
 
 const NavBar = ({location, setLocation}) => {
   const user = useSelector(state => state.session.user)
+  const history = useHistory();
   function checkUser() {
     if (user === null) {
       return (
@@ -26,7 +27,7 @@ const NavBar = ({location, setLocation}) => {
     }
     return (
       <div>
-        <button>{user.username}</button>
+        <button onClick={() => history.push(`/users/${user.id}`)}>{user.username}</button>
         <LogoutButton />
       </div>
     )

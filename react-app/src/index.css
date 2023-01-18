@@ -141,3 +141,43 @@ ul {
 
 }
 
+.form {
+    padding: 20px;
+    width: fit-content;
+    border-radius: 5px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.369);
+    margin: auto;
+    position: relative;
+    top: 15vw;
+    display: flex;
+    flex-direction: column;
+}
+
+.form > * {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    min-width: fit-content;
+}
+
+.form label {
+    display: block;
+}
+
+.form button {
+    width: 100%;
+    height: 30px;
+    background-color: hsl(206deg 100% 52%);
+    color: white;
+    border: none;
+    border-radius: 3px;
+}
+
+.form button:hover {
+    background-color: hsl(206deg 100% 40%);
+    cursor: pointer;
+}
+
+.textarea {
+    resize: none;
+    width: 300px;
+}

@@ -28,16 +28,25 @@ function CreateQuestion(){
 
   return (
    <div>
-    <form onSubmit = {handleSubmit}>
+    <form onSubmit = {handleSubmit} className='form'>
+      <div>
+      <label htmlFor="title">Title</label>
       <input
+      name='title'
       type="text"
       value={title}
       onChange={(e) => setTitle(e.target.value)}
       />
+      </div>
+      <div>
+        <label htmlFor="question">Question</label>
       <textarea
+      name="question"
       value={text}
       onChange={(e) => setText(e.target.value)}
+      className='textarea'
       />
+      </div>
       <button disabled={user === null}>Ask</button>
     </form>
    </div>
