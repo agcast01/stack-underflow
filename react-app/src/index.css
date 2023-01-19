@@ -242,6 +242,7 @@ textarea:focus-visible {
 #search-box {
     border: none;
     height: 28px;
+    width: 100%;
 }
 
 #search-box:focus-visible {
