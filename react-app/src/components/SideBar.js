@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom"
 
 function SideBar({location, setLocation}) {
-    console.log(location)
+
     return (
         <nav className="sidebar">
         <ul>

@@ -14,7 +14,7 @@ function AllQuestions(){
   }, [dispatch])
 
   if (!questions) return null
-  console.log(questions)
+
   if(!Object.values(questions).length) return (
     <div>
       <h2 style={{'margin': 'auto', 'width': 'fit-content'}}>No matches found.</h2>
