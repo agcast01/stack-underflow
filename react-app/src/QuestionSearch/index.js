@@ -15,7 +15,7 @@ function QuestionSearch() {
             <span class="material-symbols-outlined">
                 search
             </span>
-            <input type='text' value={filter} onChange={e => setFilter(e.target.value)} placeholder='Search...'  id="search-box"/>
+            <input type='text' value={filter} onChange={e => setFilter(e.target.value)} placeholder='Search questions...'  id="search-box"/>
         </form>
     )
 }
