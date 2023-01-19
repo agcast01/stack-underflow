@@ -45,6 +45,7 @@ function CreateAnswer() {
           ))}
         </ul>
         <textarea
+          className="textarea"
           value={text}
           onChange={(e) => setText(e.target.value)}
         />
