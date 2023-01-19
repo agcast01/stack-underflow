@@ -78,6 +78,7 @@ function App() {
           </Switch>
         </div>
       </div>
+      <div id="footer"></div>
       <Footer />
     </BrowserRouter>
 

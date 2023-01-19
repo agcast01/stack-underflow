@@ -236,3 +236,13 @@ input:focus-visible, textarea:focus-visible {
     outline: none;
     box-shadow: none;
 }
+
+#github {
+    color: white;
+    margin: auto;
+    padding-bottom: 10px;
+}
+
+#footer {
+    height: 168px;
+}
