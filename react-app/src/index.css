@@ -252,3 +252,24 @@ input:focus-visible, textarea:focus-visible {
 #footer {
     height: 168px;
 }
+
+.answer-question {
+    width: fit-content;
+    margin: auto;
+}
+
+#answer-button {
+    width: fit-content;
+    height: 30px;
+    background-color: hsl(206deg 100% 52%);
+    color: white;
+    border: none;
+    border-radius: 3px;
+    display: block;
+    margin: auto;
+}
+
+#answer-button:hover {
+    background-color: hsl(206deg 100% 40%);
+    cursor: pointer;
+}

@@ -34,7 +34,7 @@ function CreateAnswer() {
   }
 
   return (
-    <div>
+    <div className='answer-question'>
       <div>
         Your Answer
       </div>
@@ -49,7 +49,7 @@ function CreateAnswer() {
           value={text}
           onChange={(e) => setText(e.target.value)}
         />
-        <button disabled={user === null}>Answer</button>
+        <button disabled={user === null} id='answer-button'>Answer</button>
       </form>
     </div>
   )
