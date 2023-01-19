@@ -114,6 +114,11 @@ ul {
     margin: auto;
     justify-items: center;
     padding: 5px;
+    text-align: center;
+}
+
+.footer-row li {
+    text-align: center;
 }
 
 .content {
