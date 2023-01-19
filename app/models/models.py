@@ -45,6 +45,40 @@ user_answer_downvotes = db.Table(
     schema = SCHEMA if environment == "production" else ''
 )
 
+user_question_upvotes = db.Table(
+    
+    "user_answer_upvotes",
+    db.Column(
+        "user_id",
+        db.Integer,
+        db.ForeignKey(add_prefix_for_prod('users.id')),
+        primary_key=True
+    ),
+    db.Column(
+        "question_id",
+        db.Integer,
+        db.ForeignKey(add_prefix_for_prod('questions.id')),
+        primary_key=True
+    ),
+    schema = SCHEMA if environment == "production" else ''
+)
+
+user_question_downvotes = db.Table(
+    "user_answer_downvotes",
+    db.Column(
+        "user_id",
+        db.Integer,
+        db.ForeignKey(add_prefix_for_prod('users.id')),
+        primary_key=True
+    ),
+    db.Column(
+        "question_id",
+        db.Integer,
+        db.ForeignKey(add_prefix_for_prod('questions.id')),
+        primary_key=True
+    ),
+    schema = SCHEMA if environment == "production" else ''
+)
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -77,6 +111,18 @@ class User(db.Model, UserMixin):
         back_populates="user_downvotes"
     )
 
+    question_upvotes = db.relationship(
+        "Question",
+        secondary=user_answer_upvotes,
+        back_populates="user_upvotes"
+    )
+
+    question_downvotes = db.relationship(
+        "Question",
+        secondary=user_answer_downvotes,
+        back_populates="user_downvotes"
+    )
+
     @property
     def password(self):
         return self.hashed_password
@@ -102,7 +148,9 @@ class User(db.Model, UserMixin):
             "answers": [answer.answer for answer in self.answers],
             "questions": [question.title for question in self.questions],
             "answer_upvotes": [answer.id for answer in self.answer_upvotes],
-            "answer_downvotes": [answer.id for answer in self.answer_downvotes]
+            "answer_downvotes": [answer.id for answer in self.answer_downvotes],
+            "question_upvotes": [question.id for question in self.question_upvotes],
+            "question_downvotes": [question.id for question in self.question_downvotes]
         }
 
 
@@ -121,6 +169,18 @@ class Question(db.Model):
     user = db.relationship('User', back_populates='questions')
     answers = db.relationship(
         'Answer', back_populates='question', cascade="all, delete-orphan")
+    
+    user_upvotes = db.relationship(
+        "User",
+        secondary=user_answer_upvotes,
+        back_populates="answer_upvotes"
+    )
+
+    user_downvotes = db.relationship(
+        "User",
+        secondary=user_answer_downvotes,
+        back_populates="answer_downvotes"
+    )
 
     def to_dict(self):
         return {
@@ -129,7 +189,9 @@ class Question(db.Model):
             "userId": self.userId,
             "answers": [answer.to_dict() for answer in self.answers],
             "user": self.user.to_dict(),
-            "title": self.title
+            "title": self.title,
+            "userUpvotes": [user.id for user in self.user_upvotes],
+            "userDownvotes": [user.id for user in self.user_downvotes]
         }
 
 

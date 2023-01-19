@@ -107,6 +107,67 @@ export const updateQuestion = (data, questionId) => async dispatch => {
   return updatedQuestion
 }
 
+export const addUpvote = (data, userId) => async dispatch => {
+  const response = await fetch(`/api/questions/${data.id}/upvote`, {
+      method: 'post',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({userId})
+  })
+
+  const updatedQuestion = await response.json()
+
+  await dispatch(update(updatedQuestion))
+  return updatedQuestion
+}
+
+export const addDownvote = (data, userId) => async dispatch => {
+  const response = await fetch(`/api/questions/${data.id}/downvote`, {
+      method: 'post',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({userId})
+  })
+
+  const updatedQuestion = await response.json()
+  console.log(updatedQuestion)
+
+  await dispatch(update(updatedQuestion))
+  return updatedQuestion
+}
+
+export const removeUpvote = (data, userId) => async dispatch => {
+  const response = await fetch(`/api/questions/${data.id}/upvote`, {
+      method: 'delete',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({userId})
+  })
+
+  const updatedQuestion = await response.json()
+
+  await dispatch(update(updatedQuestion))
+  return updatedQuestion
+}
+
+export const removeDownvote = (data, userId) => async dispatch => {
+  const response = await fetch(`/api/questions/${data.id}/downvote`, {
+      method: 'delete',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({userId})
+  })
+
+  const updatedQuestion = await response.json()
+
+  await dispatch(update(updatedQuestion))
+  return updatedQuestion
+}
+
 
 let initialState = {}
 
