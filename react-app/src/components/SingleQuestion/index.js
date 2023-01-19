@@ -20,6 +20,7 @@ function SingleQuestion() {
   }
 
   const upvoteCheck = async (answer) => {
+    if (user.id === answer.user.id) return null
     if (user === null) return null
     if (answer.userUpvotes.includes(user.id)) {
       await dispatch(removeUpvote(answer, user.id))
@@ -35,6 +36,7 @@ function SingleQuestion() {
   }
 
   const downvoteCheck = async (answer) => {
+    if (user.id === answer.user.id) return null
     if (user === null) return null
     if (answer.userDownvotes.includes(user.id)) {
       await dispatch(removeDownvote(answer, user.id))
@@ -87,15 +89,15 @@ function SingleQuestion() {
             {question.answers.map((answer) => {
               return (
                 <div id='answer_body'>
-                  {user !== null && user.id !== answer.user.id && <div className="votes">
-                    <span class="material-symbols-outlined" onClick={async e => upvoteCheck(answer)} >
+                  <div className="votes">
+                    <span class="material-symbols-outlined" id={user !== null && user.id !== answer.user.id ? "not_owned" : "owned"} onClick={async e => upvoteCheck(answer)} >
                       arrow_drop_up
                     </span>
                     <span>{answer.userUpvotes.length - answer.userDownvotes.length}</span>
-                    <span class="material-symbols-outlined" onClick={async e => downvoteCheck(answer)}>
+                    <span class="material-symbols-outlined" id={user !== null && user.id !== answer.user.id ? "not_owned" : "owned"} onClick={async e => downvoteCheck(answer)}>
                       arrow_drop_down
                     </span>
-                  </div>}
+                  </div>
                   <li key={answer.id}>
                     <p>{answer.answer}</p>
                     <div id="under_answer">

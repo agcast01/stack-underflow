@@ -112,6 +112,14 @@ li {
   width: 100%;
 }
 
-p {
+#owned{
+  color: gainsboro
+}
 
+#owned:hover{
+  cursor: none;
+}
+
+#not_owned:hover{
+  color:gray
 }
