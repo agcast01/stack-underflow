@@ -4,6 +4,7 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     position: relative;
 }
+
 #root {
     min-height: 100vh;
     position: relative;
@@ -27,9 +28,13 @@ body {
     margin: auto;
     display: flex;
     position: absolute;
-    top: 30%;
     left: 10%;
+    align-items: center;
     justify-content: space-between;
+}
+
+.logo {
+    height: 60px;
 }
 
 #login {
@@ -103,7 +108,7 @@ ul {
     grid-template-rows: 2fr 1fr 1fr 1fr;
 
     position: absolute;
-    bottom:0;
+    bottom: 0;
     width: 100vw;
 }
 
@@ -141,7 +146,7 @@ ul {
     flex-direction: column;
 }
 
-.form > * {
+.form>* {
     padding-top: 5px;
     padding-bottom: 5px;
     min-width: fit-content;
@@ -178,7 +183,7 @@ ul {
 
 .user {
     width: 33%;
-    
+
 }
 
 .user-name {
@@ -201,6 +206,7 @@ ul {
 .user-page {
     padding: 20px;
 }
+
 .user-info {
     width: fit-content;
     margin: auto;
@@ -216,7 +222,8 @@ ul {
     padding: 10px;
 }
 
-input:focus-visible, textarea:focus-visible {
+input:focus-visible,
+textarea:focus-visible {
     box-shadow: 0 0 4px cyan;
     border: 1px solid rgba(0, 136, 255, 0.34);
     border-radius: 3px;
