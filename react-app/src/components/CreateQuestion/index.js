@@ -10,21 +10,19 @@ function CreateQuestion() {
   const [text, setText] = useState("")
   const [title, setTitle] = useState('')
   const [validationErrors, setValidationErrors] = useState([])
+  const errors = []
 
-  useEffect(() => {
-    const errors = []
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setValidationErrors([])
     if (!text) errors.push("Question field is required")
     if (!title) errors.push("Title field is required")
     if (title.length > 30) errors.push("Title field must be less than 30 characters")
 
-    setValidationErrors(errors)
-  }, [text, title])
+    if (errors.length) return setValidationErrors(errors)
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
 
-    if (!validationErrors.length) {
       const payload = {
         question: text,
         userId: user.id,
@@ -33,7 +31,6 @@ function CreateQuestion() {
 
       let newQuestion = await dispatch(createQuestion(payload))
       history.push(`/questions/${newQuestion.id}`)
-    }
   }
 
   return (

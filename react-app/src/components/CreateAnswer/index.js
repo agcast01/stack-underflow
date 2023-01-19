@@ -8,23 +8,19 @@ function CreateAnswer() {
   const dispatch = useDispatch()
   const { questionId } = useParams()
   const user = useSelector(state => state.session.user)
-
   const [text, setText] = useState("")
   const [validationErrors, setValidationErrors] = useState([])
-
-  useEffect(() => {
-    const errors = []
-
-    if (!text) errors.push("Answer field is required")
-
-    setValidationErrors(errors)
-  }, [text])
+  const errors = []
 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setValidationErrors([])
 
-    if (!validationErrors.length) {
+    if (!text) errors.push("Answer field is required")
+
+    if (errors.length) return setValidationErrors(errors)
+
       const payload = {
         answer: text,
         userId: user.id,
@@ -35,7 +31,6 @@ function CreateAnswer() {
       await dispatch(getQuestions())
       setText('')
       return newAnswer
-    }
   }
 
   return (
