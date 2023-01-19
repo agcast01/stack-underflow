@@ -47,7 +47,7 @@ user_answer_downvotes = db.Table(
 
 user_question_upvotes = db.Table(
     
-    "user_answer_upvotes",
+    "user_question_upvotes",
     db.Column(
         "user_id",
         db.Integer,
@@ -64,7 +64,7 @@ user_question_upvotes = db.Table(
 )
 
 user_question_downvotes = db.Table(
-    "user_answer_downvotes",
+    "user_question_downvotes",
     db.Column(
         "user_id",
         db.Integer,
@@ -113,13 +113,13 @@ class User(db.Model, UserMixin):
 
     question_upvotes = db.relationship(
         "Question",
-        secondary=user_answer_upvotes,
+        secondary=user_question_upvotes,
         back_populates="user_upvotes"
     )
 
     question_downvotes = db.relationship(
         "Question",
-        secondary=user_answer_downvotes,
+        secondary=user_question_downvotes,
         back_populates="user_downvotes"
     )
 
@@ -172,14 +172,14 @@ class Question(db.Model):
     
     user_upvotes = db.relationship(
         "User",
-        secondary=user_answer_upvotes,
-        back_populates="answer_upvotes"
+        secondary=user_question_upvotes,
+        back_populates="question_upvotes"
     )
 
     user_downvotes = db.relationship(
         "User",
-        secondary=user_answer_downvotes,
-        back_populates="answer_downvotes"
+        secondary=user_question_downvotes,
+        back_populates="question_downvotes"
     )
 
     def to_dict(self):
