@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { useHistory, useParams } from 'react-router-dom'
+import { useHistory, useParams, Link } from 'react-router-dom'
 import { destroyQuestion, getQuestions } from '../../store/question'
 import CreateAnswer from '../CreateAnswer'
 import { destroyAnswer, addUpvote, addDownvote, removeDownvote, removeUpvote } from '../../store/answer'
@@ -78,7 +78,7 @@ function SingleQuestion() {
             <button className='user_buttons delete_button' onClick={e => { handleDelete() }}>Delete</button>
           </div>)}
           <p className="username">
-            asked by {question.user.username}
+            asked by <Link to={`/users/${question.user.id}`}>{question.user.username}</Link>
           </p>
         </div>
         <div id="answer_count">
@@ -110,7 +110,7 @@ function SingleQuestion() {
                           await dispatch(getQuestions())
                         }}>Delete</button>
                       </div>)}
-                      <p className='username'>{answer.user.username}</p>
+                      <p className='username'><Link to={`/users/${answer.user.id}`}>{answer.user.username}</Link></p>
                     </div>
                   </li>
                 </div>
