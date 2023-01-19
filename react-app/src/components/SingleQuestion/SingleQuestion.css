@@ -4,19 +4,19 @@
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
-#question_answers{
+#question_answers {
   display: flex;
   flex-direction: column;
 }
 
-#under_question{
-  display:flex;
+#under_question {
+  display: flex;
   flex-direction: row;
   padding-left: 2%;
 }
 
-#under_answer{
-  display:flex;
+#under_answer {
+  display: flex;
   flex-direction: row;
 }
 
@@ -38,70 +38,71 @@
   align-items: center;
 }
 
-#title{
+#title {
   border-style: solid;
   border-color: transparent;
   font-weight: lighter;
-  border-bottom-color: rgb(227,230,232);
-  color: rgb(59,64,69);
+  border-bottom-color: rgb(227, 230, 232);
+  color: rgb(59, 64, 69);
   padding-bottom: 3%;
   padding-left: 2%
 }
 
-.edit_button{
+.edit_button {
   cursor: pointer;
   font-size: 15px;
-  color: rgb(157,163,169)
+  color: rgb(157, 163, 169)
 }
-.delete_button{
+
+.delete_button {
   margin-left: 20%;
   cursor: pointer;
   font-size: 15px;
-  color: rgb(157,163,169)
+  color: rgb(157, 163, 169)
 }
 
-#question{
+#question {
   padding-left: 2%;
   overflow-wrap: break-word;
 }
 
-.username{
+.username {
   text-align: right;
   margin: 0;
-  color: rgb(70,176,232);
+  color: rgb(70, 176, 232);
   flex-grow: 4;
 }
 
-#answer_count{
+#answer_count {
   font-size: 20px;
-  color: rgb(35,38,41);
+  color: rgb(35, 38, 41);
   margin-top: 10px;
   padding-left: 2%;
 }
 
-#answer_body{
+#answer_body {
   display: flex;
   flex-direction: row;
   border-style: solid;
   border-color: transparent;
-  border-bottom-color: rgb(227,230,232);
+  border-bottom-color: rgb(227, 230, 232);
   padding-bottom: 5%;
   padding-left: 2%
 }
 
 .votes .material-symbols-outlined {
   font-variation-settings:
-  'FILL' 0,
-  'wght' 400,
-  'GRAD' 0,
-  'opsz' 48
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48
 }
 
 .votes .material-symbols-outlined:hover {
   cursor: pointer;
 }
 
-#answers{
+#answers {
   display: flex;
   flex-direction: column;
   padding-left: 0px;
@@ -112,14 +113,14 @@ li {
   width: 100%;
 }
 
-#owned{
+#owned {
   color: gainsboro
 }
 
-#owned:hover{
-  cursor: none;
+#owned:hover {
+  cursor: default;
 }
 
-#not_owned:hover{
-  color:gray
+#not_owned:hover {
+  color: gray
 }
