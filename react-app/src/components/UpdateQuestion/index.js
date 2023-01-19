@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { updateQuestion } from "../../store/question"
 import { useHistory, useParams } from "react-router"
@@ -15,22 +15,37 @@ function UpdateQuestion() {
 
   const [text, setText] = useState(question.question)
   const [title, setTitle] = useState(question.title)
+  const [validationErrors, setValidationErrors] = useState([])
 
+  useEffect(() => {
+    const errors = []
 
+    if (!text) errors.push("Answer field is required")
+    if (!title) errors.push("Title field is required")
+
+    setValidationErrors(errors)
+  }, [text, title])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    question.question = text;
-    question.title = title
+    if (!validationErrors.length) {
+      question.question = text;
+      question.title = title
 
-    await dispatch(updateQuestion(question, questionId))
-    history.push(`/questions/${questionId}`)
+      await dispatch(updateQuestion(question, questionId))
+      history.push(`/questions/${questionId}`)
+    }
   }
 
   return (
     <div>
       <form onSubmit={handleSubmit}>
+        <ul className="errors">
+          {validationErrors.length > 0 && validationErrors.map((error, idx) => (
+            <li key={idx}><i class="fa-sharp fa-solid fa-circle-exclamation"></i> {error}</li>
+          ))}
+        </ul>
         <input
           type='text'
           value={title}

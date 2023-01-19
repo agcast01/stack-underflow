@@ -22,22 +22,45 @@ function User() {
   if (!user) {
     return null;
   }
-
+  console.log(user.questions)
   return (
-    <ul>
-      <li>
-        <strong>User Id</strong> {userId}
-      </li>
-      <li>
-        <strong>Username</strong> {user.username}
-      </li>
-      <li>
-        <strong>Email</strong> {user.email}
-      </li>
-      {currUser !== null && user.id === currUser.id && <li>
-        <Link to={`/users/${userId}/edit`}>Edit Profile</Link>
-      </li>}
-    </ul>
+    <div className='user-page'>
+      <div>
+        <h2>{user.username}</h2>
+        <p>{user.location !== null && (<> <span class="material-symbols-outlined">
+          location_on
+        </span> {user.location}</>)}</p>
+        {currUser !== null && user.id === currUser.id &&
+          <Link to={`/users/${userId}/edit`}>Edit Profile</Link>
+        }
+      </div>
+
+
+      <div className='user-info'>
+        <div >
+          <h3>About</h3>
+          <div>{user.about_me || 'Nothing cool about me yet'}</div>
+        </div>
+        <div>
+          <h3>Questions</h3>
+          <ul className='user-listings'>
+            {(user.questions && user.questions.length && user.questions.map(question => (
+              <li key={question}><p>{question}</p></li>
+            ))) || (<li>No questions yet</li>)}
+          </ul>
+        </div>
+        <div>
+          <h3>
+            Answers
+          </h3>
+          <ul className='user-listings'>
+            {(user.answers && user.answers.length && user.answers.map(question => (
+              <li key={question}><p>{question}</p></li>
+            ))) || (<li>No answers yet</li>)}
+          </ul>
+        </div>
+      </div>
+    </div>
   );
 }
 export default User;

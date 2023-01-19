@@ -100,6 +100,7 @@ class User(db.Model, UserMixin):
             'twitter_url': self.twitter_url,
             'github_url': self.github_url,
             "answers": [answer.answer for answer in self.answers],
+            "questions": [question.title for question in self.questions],
             "answer_upvotes": [answer.id for answer in self.answer_upvotes],
             "answer_downvotes": [answer.id for answer in self.answer_downvotes]
         }

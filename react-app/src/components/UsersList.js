@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
 function UsersList() {
   const [users, setUsers] = useState([]);
+  const answers = useSelector(state => state.answers)
 
   useEffect(() => {
     async function fetchData() {
@@ -15,8 +17,9 @@ function UsersList() {
 
   const userComponents = users.map((user) => {
     return (
-      <li key={user.id}>
-        <NavLink to={`/users/${user.id}`}>{user.username}</NavLink>
+      <li key={user.id} className='user'>
+        <NavLink to={`/users/${user.id}`} className='user-name'>{user.username}</NavLink>
+        <p>{user.location !== null && user.location}</p>
       </li>
     );
   });
@@ -24,7 +27,7 @@ function UsersList() {
   return (
     <>
       <h1>User List: </h1>
-      <ul>{userComponents}</ul>
+      <ul className='user-list'>{userComponents}</ul>
     </>
   );
 }
