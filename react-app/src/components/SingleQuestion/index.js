@@ -1,52 +1,54 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory, useParams, Link } from 'react-router-dom'
 import { destroyQuestion, getQuestions } from '../../store/question'
+import { destroyAnswer } from '../../store/answer'
+import * as questions from '../../store/question'
+import * as answers from '../../store/answer'
 import CreateAnswer from '../CreateAnswer'
-import { destroyAnswer, addUpvote, addDownvote, removeDownvote, removeUpvote } from '../../store/answer'
 import './SingleQuestion.css'
 function SingleQuestion() {
   const dispatch = useDispatch()
   const history = useHistory()
   const { questionId } = useParams()
-  const questions = useSelector(state => state.questions)
+  const questionList = useSelector(state => state.questions)
   const user = useSelector(state => state.session.user)
 
 
-  const question = questions[questionId]
+  const question = questionList[questionId]
   console.log(question)
   const handleDelete = async () => {
     await dispatch(destroyQuestion(questionId)).then(() => history.push('/'))
 
   }
 
-  const upvoteCheck = async (answer) => {
-    if (user.id === answer.user.id) return null
+  const upvoteCheck = async (object, method) => {
+    if (user.id === object.user.id) return null
     if (user === null) return null
-    if (answer.userUpvotes.includes(user.id)) {
-      await dispatch(removeUpvote(answer, user.id))
+    if (object.userUpvotes.includes(user.id)) {
+      await dispatch(method.removeUpvote(object, user.id))
     } else {
-      await dispatch(addUpvote(answer, user.id))
+      await dispatch(method.addUpvote(object, user.id))
     }
 
-    if (answer.userDownvotes.includes(user.id)) {
-      await dispatch(removeDownvote(answer, user.id))
+    if (object.userDownvotes.includes(user.id)) {
+      await dispatch(method.removeDownvote(object, user.id))
     }
 
     await dispatch(getQuestions())
   }
 
-  const downvoteCheck = async (answer) => {
-    if (user.id === answer.user.id) return null
+  const downvoteCheck = async (object, method) => {
+    if (user.id === object.user.id) return null
     if (user === null) return null
-    if (answer.userDownvotes.includes(user.id)) {
-      await dispatch(removeDownvote(answer, user.id))
+    if (object.userDownvotes.includes(user.id)) {
+      await dispatch(method.removeDownvote(object, user.id))
     }
     else {
-      await dispatch(addDownvote(answer, user.id))
+      await dispatch(method.addDownvote(object, user.id))
     }
 
-    if (answer.userUpvotes.includes(user.id)) {
-      await dispatch(removeUpvote(answer, user.id))
+    if (object.userUpvotes.includes(user.id)) {
+      await dispatch(method.removeUpvote(object, user.id))
     }
 
     await dispatch(getQuestions())
@@ -57,7 +59,7 @@ function SingleQuestion() {
     if (!answers.length) return true
     let tempArr = [...answers];
     const answer = tempArr.shift();
-    if ( user !== null && answer.user.id === user.id) return false
+    if (user !== null && answer.user.id === user.id) return false
     return userAnswerCheck(tempArr)
 
   }
@@ -69,7 +71,18 @@ function SingleQuestion() {
         <h1 id='title'>
           {question.title}
         </h1>
+        <div style={{'display': 'flex'}}>
+        <div className="votes">
+                    <span class="material-symbols-outlined" id={user !== null && user.id !== question.user.id ? "not_owned" : "owned"} onClick={async e => upvoteCheck(question, questions)} >
+                      arrow_drop_up
+                    </span>
+                    <span>{question.userUpvotes.length - question.userDownvotes.length}</span>
+                    <span class="material-symbols-outlined" id={user !== null && user.id !== question.user.id ? "not_owned" : "owned"} onClick={async e => downvoteCheck(question, questions)}>
+                      arrow_drop_down
+                    </span>
+                  </div>
         <p id="question">{question.question}</p>
+        </div>
         <div id="under_question">
           {user !== null && user.id === question.user.id && (<div>
             <button className='user_buttons edit_button' onClick={e => history.push(`/questions/edit/${question.id}`)}>Edit</button>
@@ -90,11 +103,11 @@ function SingleQuestion() {
               return (
                 <div id='answer_body'>
                   <div className="votes">
-                    <span class="material-symbols-outlined" id={user !== null && user.id !== answer.user.id ? "not_owned" : "owned"} onClick={async e => upvoteCheck(answer)} >
+                    <span class="material-symbols-outlined" id={user !== null && user.id !== answer.user.id ? "not_owned" : "owned"} onClick={async e => upvoteCheck(answer, answers)} >
                       arrow_drop_up
                     </span>
                     <span>{answer.userUpvotes.length - answer.userDownvotes.length}</span>
-                    <span class="material-symbols-outlined" id={user !== null && user.id !== answer.user.id ? "not_owned" : "owned"} onClick={async e => downvoteCheck(answer)}>
+                    <span class="material-symbols-outlined" id={user !== null && user.id !== answer.user.id ? "not_owned" : "owned"} onClick={async e => downvoteCheck(answer, answers)}>
                       arrow_drop_down
                     </span>
                   </div>

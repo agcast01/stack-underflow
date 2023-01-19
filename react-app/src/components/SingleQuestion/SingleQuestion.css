@@ -89,7 +89,7 @@
   padding-left: 2%
 }
 
-#answer_body .material-symbols-outlined {
+.votes .material-symbols-outlined {
   font-variation-settings:
   'FILL' 0,
   'wght' 400,
@@ -97,7 +97,7 @@
   'opsz' 48
 }
 
-#answer_body .material-symbols-outlined:hover {
+.votes .material-symbols-outlined:hover {
   cursor: pointer;
 }
 
