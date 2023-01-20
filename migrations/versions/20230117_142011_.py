@@ -35,4 +35,5 @@ def downgrade():
     op.drop_column('users', 'about_me')
     op.drop_column('users', 'title')
     op.drop_column('users', 'location')
+
     # ### end Alembic commands ###

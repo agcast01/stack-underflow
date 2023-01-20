@@ -6,14 +6,14 @@ import QuestionSearch from '../QuestionSearch';
 import { useSelector } from 'react-redux';
 import '../components/auth/auth.css'
 
-const NavBar = ({location, setLocation}) => {
+const NavBar = ({ location, setLocation }) => {
   const user = useSelector(state => state.session.user)
   const history = useHistory();
   function checkUser() {
     if (user === null) {
       return (
         <div>
-          <button  id='login'>
+          <button id='login'>
             <NavLink to='/login' exact={true} activeClassName='active'>
               Login
             </NavLink>
@@ -37,7 +37,9 @@ const NavBar = ({location, setLocation}) => {
   return (
     <div className='head'>
       <nav className='navbar'>
-        <NavLink to='/' onClick={() => setLocation('/')}>stackunderflow</NavLink>
+        <NavLink to='/' onClick={() => setLocation('/')}>
+          <img className='logo' src='https://i.imgur.com/Lqj9luv.png' alt='logo' />
+        </NavLink>
 
         <QuestionSearch />
         {checkUser()}

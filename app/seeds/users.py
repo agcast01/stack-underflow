@@ -1,4 +1,5 @@
 from app.models import db, User, environment, SCHEMA, Question, Answer
+from random import randint
 
 # Adds a demo user, you can add other users here if you want
 def seed_users():
@@ -16,6 +17,11 @@ def seed_users():
         username="Gus", email='gus@aa.io', password='password')
     dane = User(
         username="Dane", email='dane@aa.io', password='password')
+    for i in range(10):
+        user = User(
+            username=f'user{i + 1}', email=f'user{i}@aa.io', password='password' 
+        )
+        db.session.add(user)
 
     db.session.add(demo)
     db.session.add(marnie)
@@ -41,11 +47,18 @@ def seed_users():
         question='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ipsum ligula, iaculis eu dapibus at, sollicitudin sed nunc. Nulla rutrum ac lectus vitae fringilla. Sed feugiat quis erat ut lacinia. Donec tincidunt vel est vitae consectetur. Proin a odio sit amet erat porta volutpat sit amet at dolor. Praesent varius fermentum nibh eu rutrum. Quisque auctor risus aliquam, vehicula lorem sed, dictum libero. Aliquam vestibulum massa purus, vel tincidunt quam maximus in.', userId=5, title='How could I make a real bug, like a scorpion, out of computer bugs?'
     )
 
+   
+
     db.session.add(question1)
     db.session.add(question2)
     db.session.add(question3)
     db.session.add(question4)
     db.session.add(question5)
+    for i in range(10):
+        question = Question(
+            question='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ipsum ligula, iaculis eu dapibus at, sollicitudin sed nunc. Nulla rutrum ac lectus vitae fringilla. Sed feugiat quis erat ut lacinia. Donec tincidunt vel est vitae consectetur. Proin a odio sit amet erat porta volutpat sit amet at dolor. Praesent varius fermentum nibh eu rutrum. Quisque auctor risus aliquam, vehicula lorem sed, dictum libero. Aliquam vestibulum massa purus, vel tincidunt quam maximus in.?', userId=i + 6, title=f'Sample Question #{i + 1}'
+        )
+        db.session.add(question)
     db.session.commit()
 
     #Answer Seed Data
@@ -67,6 +80,13 @@ def seed_users():
     db.session.add(answer1)
     db.session.add(answer2)
     db.session.add(answer3)
+    for i in range(15):
+        for j in range(3):
+            answer = Answer(
+                answer='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ipsum ligula, iaculis eu dapibus at, sollicitudin sed nunc. Nulla rutrum ac lectus vitae fringilla. Sed feugiat quis erat ut lacinia. Donec tincidunt vel est vitae consectetur. Proin a odio sit amet erat porta volutpat sit amet at dolor. Praesent varius fermentum nibh eu rutrum. Quisque auctor risus aliquam, vehicula lorem sed, dictum libero. Aliquam vestibulum massa purus, vel tincidunt quam maximus in.', questionId=i + 1, userId=(i + 1 + j if i < 12 else 1 + j)
+            )
+            db.session.add(answer)
+
     db.session.commit()
 
 
@@ -82,11 +102,22 @@ def undo_users():
         db.session.execute(f"TRUNCATE table {SCHEMA}.users RESTART IDENTITY CASCADE;")
         db.session.execute(f"TRUNCATE table {SCHEMA}.questions RESTART IDENTITY CASCADE;")
         db.session.execute(f"TRUNCATE table {SCHEMA}.answers RESTART IDENTITY CASCADE;")
+        db.session.execute(f"TRUNCATE table {SCHEMA}.user_answer_upvotes RESTART IDENTITY CASCADE;")
+        db.session.execute(f"TRUNCATE table {SCHEMA}.user_answer_downvotes RESTART IDENTITY CASCADE;")
+        db.session.execute(f"TRUNCATE table {SCHEMA}.user_question_upvotes RESTART IDENTITY CASCADE;")
+        db.session.execute(f"TRUNCATE table {SCHEMA}.user_question_downvotes RESTART IDENTITY CASCADE;")
+
 
     else:
         db.session.execute("DELETE FROM users")
         db.session.execute("DELETE FROM questions")
         db.session.execute("DELETE FROM answers")
+        db.session.execute("DELETE FROM user_answer_upvotes")
+        db.session.execute("DELETE FROM user_answer_downvotes")
+        db.session.execute("DELETE FROM user_question_upvotes")
+        db.session.execute("DELETE FROM user_question_downvotes")
+
+
 
 
     db.session.commit()
