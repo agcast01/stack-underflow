@@ -20,7 +20,7 @@ function UpdateQuestion() {
   useEffect(() => {
     const errors = []
 
-    if (!text) errors.push("Answer field is required")
+    if (!text) errors.push("Question field is required")
     if (!title) errors.push("Title field is required")
 
     setValidationErrors(errors)
@@ -40,20 +40,25 @@ function UpdateQuestion() {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form className="form" onSubmit={handleSubmit}>
         <ul className="errors">
           {validationErrors.length > 0 && validationErrors.map((error, idx) => (
             <li key={idx}><i class="fa-sharp fa-solid fa-circle-exclamation"></i> {error}</li>
           ))}
         </ul>
+        <label htmlFor="title">Title</label>
         <input
+          name='title'
           type='text'
           value={title}
           onChange={e => setTitle(e.target.value)}
         />
+        <label htmlFor="question">Question</label>
         <textarea
+          name="question"
           value={text}
           onChange={(e) => setText(e.target.value)}
+          className='textarea'
         />
         <button disabled={user === null}>Update</button>
       </form>
