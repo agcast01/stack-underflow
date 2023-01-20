@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import {  useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { createQuestion } from "../../store/question"
 import { useHistory } from "react-router"

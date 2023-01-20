@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react"
+import {  useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { useHistory, useParams } from "react-router"
+import { useParams } from "react-router"
 import { createAnswer } from "../../store/answer"
 import { getQuestions } from "../../store/question"
 

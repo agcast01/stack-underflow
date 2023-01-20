@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import {  useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { updateQuestion } from "../../store/question"
 import { useHistory, useParams } from "react-router"
@@ -17,18 +17,15 @@ function UpdateQuestion() {
   const [title, setTitle] = useState(question.title)
   const [validationErrors, setValidationErrors] = useState([])
 
-  useEffect(() => {
-    const errors = []
-
-    if (!text) errors.push("Question field is required")
-    if (!title) errors.push("Title field is required")
-
-    setValidationErrors(errors)
-  }, [text, title])
-
   const handleSubmit = async (e) => {
     e.preventDefault();
+    let errors = []
+    setValidationErrors([])
+    if (!text) errors.push("Question field is required")
+    if (!title) errors.push("Title field is required")
+    if (title.length > 30) errors.push("Title field must be less than 30 characters")
 
+    if (errors.length) return setValidationErrors(errors)
     if (!validationErrors.length) {
       question.question = text;
       question.title = title
