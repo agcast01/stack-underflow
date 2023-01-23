@@ -22,8 +22,8 @@ function SingleQuestion() {
   }
 
   const upvoteCheck = async (object, method) => {
-    if (user.id === object.user.id) return null
     if (user === null) return null
+    if (user.id === object.user.id) return null
     if (object.userUpvotes.includes(user.id)) {
       await dispatch(method.removeUpvote(object, user.id))
     } else {
@@ -38,8 +38,8 @@ function SingleQuestion() {
   }
 
   const downvoteCheck = async (object, method) => {
-    if (user.id === object.user.id) return null
     if (user === null) return null
+    if (user.id === object.user.id) return null
     if (object.userDownvotes.includes(user.id)) {
       await dispatch(method.removeDownvote(object, user.id))
     }
