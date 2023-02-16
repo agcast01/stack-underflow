@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { NavLink, useHistory } from 'react-router-dom';
+import { NavLink, useHistory, useLocation } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
 import QuestionSearch from '../QuestionSearch';
 import { useSelector } from 'react-redux';
@@ -9,6 +9,7 @@ import '../components/auth/auth.css'
 const NavBar = ({ location, setLocation }) => {
   const user = useSelector(state => state.session.user)
   const history = useHistory();
+  const path = useLocation()
   function checkUser() {
     if (user === null) {
       return (
@@ -41,7 +42,7 @@ const NavBar = ({ location, setLocation }) => {
           <img className='logo' src='https://i.imgur.com/Lqj9luv.png' alt='logo' />
         </NavLink>
 
-        <QuestionSearch />
+        {path.pathname === '/' && <QuestionSearch />}
         {checkUser()}
       </nav>
     </div>
