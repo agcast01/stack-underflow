@@ -4,6 +4,26 @@ Live Link: https://stack-underflow-x2ou.onrender.com
 
 Github Link: https://github.com/agcast01/stack-underflow
 
+## Contact Us
+
+Alex Castillo
+*  agcast01@gmail.com
+*  [LinkedIn](https://www.linkedin.com/in/alex-castillo-672b94257/) 
+*  [Github](https://github.com/agcast01)
+
+Andrew Duong 
+
+*  itsandrewduong@gmail.com
+*  [LinkedIn](https://www.linkedin.com/in/andrewrduong/) 
+*  [Github](https://github.com/drewduong)
+
+Chase Towe 
+*  supershoo3@gmail.com 
+*  [LinkedIn](https://www.linkedin.com/in/chase-towe-89673523a/) 
+*  [Github](https://github.com/cchaseT42)
+
+
+
 ## Wiki Links
 
 *  [Database Schema](https://github.com/agcast01/stack-underflow/wiki/Database-Schema)
