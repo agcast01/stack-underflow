@@ -23,7 +23,7 @@ function AllQuestions(){
 
   return (
     <div className='questions_container'>
-      
+
       <div className='header'>
         <h1>All Questions</h1>
         <button onClick = {e => history.push(`/questions/new`)}>Ask Question</button>
