@@ -32,7 +32,3 @@ Pipfile and a requirements file to install the correct versions. There is also a
 ## Landing Page
 
 ![Screenshot 2023-02-16 131206](https://user-images.githubusercontent.com/105185556/219488778-0616e26c-3551-41b0-94bd-375242bbe62a.png)
-
-## Question Details
-
-[Screenshot 2023-02-16 131806](https://user-images.githubusercontent.com/105185556/219489167-bcc5a1f5-1ace-41bf-8451-d883627713e2.png)
